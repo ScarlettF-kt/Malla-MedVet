@@ -1,5 +1,91 @@
-// script.js
+ """<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Malla Interactiva Medicina Veterinaria</title>
+  <link rel="stylesheet" href="estilos.css" />
+</head>
+<body>
+  <h1>Malla Interactiva Medicina Veterinaria</h1>
+  <div id="malla"></div>
+  <script src="script.js"></script>
+</body>
+</html>
+"""
 
+# estilos.css
+estilos_css = """
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0fdf4;
+  color: #1b4332;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  color: #2d6a4f;
+}
+
+#malla {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.ramo {
+  background-color: #d8f3dc;
+  border: 2px solid #95d5b2;
+  padding: 12px;
+  border-radius: 12px;
+  transition: transform 0.2s;
+  position: relative;
+  cursor: pointer;
+}
+
+.ramo:hover {
+  transform: scale(1.02);
+}
+
+.ramo.aprobado {
+  background-color: #74c69d;
+  border-color: #52b788;
+  color: white;
+}
+
+.ramo .nombre {
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.ramo .codigo {
+  font-size: 0.85em;
+  color: #555;
+}
+
+.ramo.bloqueado {
+  background-color: #eeeeee;
+  border-color: #cccccc;
+  color: #999;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+.ramo.bloqueado:hover {
+  transform: none;
+}
+
+.ramo .detalle {
+  font-size: 0.75em;
+  margin-top: 8px;
+  color: #333;
+}
+"""
+
+# script.js (completo)
+script_js = """
 const ramos = [
   // Primer año - 1 semestre
   { codigo: "BIMI030", nombre: "BIOLOGIA CELULAR", abre: ["FARM101", "HIPA104", "FARM155"], requisitos: [] },
@@ -12,81 +98,37 @@ const ramos = [
 
   // Primer año - 2 semestre
   { codigo: "ANAV051", nombre: "ANATOMIA VETERINARIA", abre: ["ANAV140"], requisitos: [] },
-  { codigo: "ANAV131", nombre: "EMBRIOLOGIA VETERINARIA", abre: ["CIAN161"], requisitos: ["ANAV140"] },
+  { codigo: "ANAV131", nombre: "EMBRIOLOGIA VETERINARIA", abre: ["CIAN161"], requisitos: [] },
   { codigo: "ELECT13", nombre: "OFG 2", abre: [], requisitos: [] },
   { codigo: "FARM101", nombre: "BIOQUIMICA VETERINARIA", abre: ["BIMI165", "FARM151"], requisitos: ["BIMI030"] },
   { codigo: "HIPA104", nombre: "HISTOLOGIA", abre: ["PANI142"], requisitos: ["BIMI030"] },
   { codigo: "MVET053", nombre: "PRACTICA INTRODUCCION A LA MEDICINA VETERINARIA II", abre: [], requisitos: ["MVET013"] },
 
   // Segundo año - 3 semestre
-  { codigo: "ANAV140", nombre: "MORFOLOGÍA VETERINARIA APLICADA", abre: ["CIAN161"], requisitos: ["ANAV051"] },
+  { codigo: "ANAV140", nombre: "MORFOLOGÍA VETERINARIA APLICADA", abre: ["CIAN161"], requisitos: ["ANAV051", "ANAV131"] },
   { codigo: "BIMI165", nombre: "MICROBIOLOGÍA GENERAL", abre: ["MEPR235"], requisitos: ["FARM101"] },
   { codigo: "CIAN141", nombre: "ZOOTECNIA", abre: ["CIAN113", "CIAN243"], requisitos: ["CIAN040"] },
   { codigo: "FARM151", nombre: "FISIOLOGÍA VETERINARIA", abre: ["FARM202"], requisitos: ["FARM101"] },
-  { codigo: "FARM155", nombre: "INMUNOLOGÍA", abre: ["PANI142"], requisitos: ["BIMI030"] },
+  { codigo: "FARM155", nombre: "INMUNOLOGÍA", abre: ["PANI142"], requisitos: ["HIPA104"] },
   { codigo: "MEPR132", nombre: "BIOESTADISTICA", abre: ["CIAN240", "CIAN244"], requisitos: ["MATM003"] },
 
   // Segundo año - 4 semestre
   { codigo: "CIAN113", nombre: "ETOLOGIA Y BIENESTAR ANIMAL", abre: [], requisitos: ["CIAN141"] },
   { codigo: "CIAN161", nombre: "FISIOLOGIA REPRODUCTIVA", abre: ["CIAN262", "CIAN233"], requisitos: ["ANAV140", "ANAV131"] },
-  { codigo: "CIDI023", nombre: "INGLES I", abre: ["CIDI123"], requisitos: [] },
-  { codigo: "FARM202", nombre: "FISIOPATOLOGÍA VETERINARIA", abre: ["FARM211", "PANI238", "HOVE272"], requisitos: ["FARM151"] },
+  { codigo: "CIDI023", nombre: "INGLES I", abre: [], requisitos: [] },
+  { codigo: "FARM202", nombre: "FISIOPATOLÓGIA VETERINARIA", abre: ["FARM211", "PANI238", "HOVE272"], requisitos: ["FARM151", "PANI142"] },
   { codigo: "MEPR235", nombre: "ENFERMEDADES INFECCIOSAS DE LOS ANIMALES DOMÉSTICOS", abre: [], requisitos: ["BIMI165"] },
   { codigo: "PANI142", nombre: "PATOLOGÍA GENERAL", abre: ["PANI238", "PANI239"], requisitos: ["HIPA104", "FARM155"] },
 
   // Tercer año - 5 semestre
   { codigo: "CIAN243", nombre: "NUTRICIÓN Y ALIMENTACIÓN", abre: ["CIAN249", "MEPR200", "CIAN246"], requisitos: ["CIAN141"] },
   { codigo: "CIAN262", nombre: "REPRODUCCION ANIMAL I", abre: ["CIAN246"], requisitos: ["CIAN161"] },
-  { codigo: "CIDI123", nombre: "INGLES II", abre: ["CIDI223"], requisitos: ["CIDI023"] },
+  { codigo: "CIDI123", nombre: "INGLES II", abre: [], requisitos: ["CIDI023"] },
   { codigo: "FARM211", nombre: "FARMACOLOGIA VETERINARIA", abre: ["HOVE215", "HOVE278"], requisitos: ["FARM202"] },
-  { codigo: "MVET102", nombre: "PRÁCTICA BÁSICA", abre: ["MEPR209"], requisitos: ["MVET053", "ANAV140", "BIMI165", "CIAN141", "FARM151", "FARM155", "MEPR132", "CIAN113", "CIAN161", "FARM202", "PANI142", "MEPR235", "CIDI023"] },
+  { codigo: "MVET102", nombre: "PRÁCTICA BÁSICA", abre: ["MEPR209"], requisitos: ["BIMI030", "CIAN040", "DYRE070", "ELECT12", "MATM003", "MVET013", "QUIM007", "ANAV051", "ANAV131", "ELECT13", "FARM101", "HIPA104", "MVET053", "ANAV140", "BIMI165", "CIAN141", "FARM151", "FARM155", "MEPR132", "CIAN113", "CIAN161", "FARM202", "MEPR235", "PANI142", "CIAN243", "CIAN262", "CIDI123", "FARM211", "PANI238", "PANI239"] },
   { codigo: "PANI238", nombre: "ENFERMEDADES PARASITARIAS", abre: ["PANI254", "MEPR209", "MEPR216"], requisitos: ["FARM202", "PANI142"] },
-  { codigo: "PANI239", nombre: "PATOLOGIA ESPECIAL E INMUNOPATOLOGIA", abre: ["MEPR200", "PANI254", "HOVE272", "HOVE278", "HOVE292", "MEPR216"], requisitos: ["PANI142"] },
+  { codigo: "PANI239", nombre: "PATOLOGIA ESPECIAL E INMUNOPATOLOGIA", abre: ["MEPR200", "PANI254", "HOVE272", "HOVE278", "HOVE292", "MEPR216"], requisitos: ["PANI142", "CIAN243", "FARM211"] },
 
-  // Continúa en script extendido si es necesario...
-];
-
-function crearRamoHTML(ramo) {
-  const div = document.createElement("div");
-  div.className = "ramo bloqueado";
-  div.id = ramo.codigo;
-  div.innerHTML = `
-    <div class="nombre">${ramo.nombre}</div>
-    <div class="codigo">${ramo.codigo}</div>
-  `;
-  div.onclick = () => aprobarRamo(ramo);
-  return div;
-}
-
-function aprobarRamo(ramo) {
-  const div = document.getElementById(ramo.codigo);
-  if (div.classList.contains("aprobado")) return;
-
-  div.classList.add("aprobado");
-
-  ramos.forEach(r => {
-    if (r.requisitos.includes(ramo.codigo)) {
-      const desbloqueado = r.requisitos.every(req => document.getElementById(req)?.classList.contains("aprobado"));
-      if (desbloqueado) {
-        document.getElementById(r.codigo)?.classList.remove("bloqueado");
-      }
-    }
-  });
-}
-
-function inicializarMalla() {
-  const contenedor = document.getElementById("malla");
-  ramos.forEach(ramo => {
-    const div = crearRamoHTML(ramo);
-    if (ramo.requisitos.length === 0) div.classList.remove("bloqueado");
-    contenedor.appendChild(div);
-  });
-}
-
-document.addEventListener("DOMContentLoaded", inicializarMalla);
-// script.js
-
-const ramos = [
   // Tercer año - 6 semestre
   { codigo: "CIAN233", nombre: "REPRODUCCIÓN ANIMAL II", abre: [], requisitos: ["CIAN161"] },
   { codigo: "CIAN240", nombre: "ECONOMIA Y FUNDAMENTOS DE ADMINISTRACION PECUARIA", abre: ["CIAN248"], requisitos: ["MEPR132"] },
@@ -168,4 +210,5 @@ function inicializarMalla() {
 }
 
 document.addEventListener("DOMContentLoaded", inicializarMalla);
+"""
 
