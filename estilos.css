@@ -1,1 +1,67 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0fdf4;
+  color: #1b4332;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  color: #2d6a4f;
+}
+
+#malla {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.ramo {
+  background-color: #d8f3dc;
+  border: 2px solid #95d5b2;
+  padding: 12px;
+  border-radius: 12px;
+  transition: transform 0.2s;
+  position: relative;
+  cursor: pointer;
+}
+
+.ramo:hover {
+  transform: scale(1.02);
+}
+
+.ramo.aprobado {
+  background-color: #74c69d;
+  border-color: #52b788;
+  color: white;
+}
+
+.ramo .nombre {
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.ramo .codigo {
+  font-size: 0.85em;
+  color: #555;
+}
+
+.ramo.bloqueado {
+  background-color: #eeeeee;
+  border-color: #cccccc;
+  color: #999;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+.ramo.bloqueado:hover {
+  transform: none;
+}
+
+.ramo .detalle {
+  font-size: 0.75em;
+  margin-top: 8px;
+  color: #333;
+}
 
