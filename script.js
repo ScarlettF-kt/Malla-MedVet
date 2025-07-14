@@ -1,126 +1,372 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Malla Curricular Medicina Veterinaria</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background: #f9f9f9;
+  }
+  h1, h2 {
+    color: #2c3e50;
+  }
+  section.semestre {
+    background: white;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    box-shadow: 0 0 6px #ccc;
+  }
+  ul.materias {
+    list-style: none;
+    padding-left: 0;
+  }
+  ul.materias li {
+    padding: 6px 10px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    position: relative;
+  }
+  ul.materias li:last-child {
+    border-bottom: none;
+  }
+  ul.materias li:hover {
+    background-color: #dff0d8;
+  }
+  /* Tooltip oculto por defecto */
+  ul.materias li .tooltip {
+    visibility: hidden;
+    background-color: #333;
+    color: #fff;
+    text-align: left;
+    border-radius: 6px;
+    padding: 5px 10px;
+    position: absolute;
+    z-index: 10;
+    top: 50%;
+    left: 105%;
+    transform: translateY(-50%);
+    width: max-content;
+    max-width: 320px;
+    font-size: 0.9em;
+    transition: visibility 0.2s ease-in-out;
+    box-shadow: 0 0 8px rgba(0,0,0,0.3);
+  }
+</style>
+</head>
+<body>
 
-const ramos = [
-  // Primer año - 1 semestre
-  { codigo: "BIMI030", nombre: "BIOLOGIA CELULAR", abre: ["FARM101", "HIPA104", "FARM155"], requisitos: [] },
-  { codigo: "CIAN040", nombre: "ZOOLOGIA Y ECOLOGIA APLICADA", abre: ["CIAN141"], requisitos: [] },
-  { codigo: "DYRE070", nombre: "EDUCACIÓN FÍSICA Y SALUD", abre: [], requisitos: [] },
-  { codigo: "ELECT12", nombre: "OFG 1", abre: [], requisitos: [] },
-  { codigo: "MATM003", nombre: "ELEMENTOS DE CALCULO", abre: ["MEPR132"], requisitos: [] },
-  { codigo: "MVET013", nombre: "PRACTICA INTRODUCCION A LA MEDICINA VETERINARIA I", abre: ["MVET053"], requisitos: [] },
-  { codigo: "QUIM007", nombre: "QUIMICA GENERAL", abre: [], requisitos: [] },
+<h1>Malla Curricular Medicina Veterinaria</h1>
 
-  // Primer año - 2 semestre
-  { codigo: "ANAV051", nombre: "ANATOMIA VETERINARIA", abre: ["ANAV140"], requisitos: [] },
-  { codigo: "ANAV131", nombre: "EMBRIOLOGIA VETERINARIA", abre: ["CIAN161"], requisitos: [] },
-  { codigo: "ELECT13", nombre: "OFG 2", abre: [], requisitos: [] },
-  { codigo: "FARM101", nombre: "BIOQUIMICA VETERINARIA", abre: ["BIMI165", "FARM151"], requisitos: ["BIMI030"] },
-  { codigo: "HIPA104", nombre: "HISTOLOGIA", abre: ["PANI142"], requisitos: ["BIMI030"] },
-  { codigo: "MVET053", nombre: "PRACTICA INTRODUCCION A LA MEDICINA VETERINARIA II", abre: [], requisitos: ["MVET013"] },
+<!-- Primer Año -->
+<section>
+  <h2>Primer Año</h2>
 
-  // Segundo año - 3 semestre
-  { codigo: "ANAV140", nombre: "MORFOLOGÍA VETERINARIA APLICADA", abre: ["CIAN161"], requisitos: ["ANAV051", "ANAV131"] },
-  { codigo: "BIMI165", nombre: "MICROBIOLOGÍA GENERAL", abre: ["MEPR235"], requisitos: ["FARM101"] },
-  { codigo: "CIAN141", nombre: "ZOOTECNIA", abre: ["CIAN113", "CIAN243"], requisitos: ["CIAN040"] },
-  { codigo: "FARM151", nombre: "FISIOLOGÍA VETERINARIA", abre: ["FARM202"], requisitos: ["FARM101"] },
-  { codigo: "FARM155", nombre: "INMUNOLOGÍA", abre: ["PANI142"], requisitos: ["HIPA104"] },
-  { codigo: "MEPR132", nombre: "BIOESTADISTICA", abre: ["CIAN240", "CIAN244"], requisitos: ["MATM003"] },
+  <section class="semestre">
+    <h3>1er Semestre</h3>
+    <ul class="materias">
+      <li>
+        BIMI030 - BIOLOGÍA CELULAR
+        <span class="tooltip">Abre: FARM101 - BIOQUÍMICA VETERINARIA, HIPA104 – HISTOLOGÍA, FARM155 - INMUNOLOGÍA</span>
+      </li>
+      <li>
+        CIAN040 - ZOOLOGÍA Y ECOLOGÍA APLICADA
+        <span class="tooltip">Abre: CIAN141 – ZOOTECNIA</span>
+      </li>
+      <li>DYRE070 - EDUCACIÓN FÍSICA Y SALUD</li>
+      <li>ELECT12 - OFG 1</li>
+      <li>
+        MATM003 - ELEMENTOS DE CÁLCULO
+        <span class="tooltip">Abre: MEPR132 - BIOESTADÍSTICA</span>
+      </li>
+      <li>
+        MVET013 - PRÁCTICA INTRODUCCIÓN A LA MEDICINA VETERINARIA I
+        <span class="tooltip">Abre: MVET053 - PRÁCTICA INTRODUCCIÓN A LA MEDICINA VETERINARIA II</span>
+      </li>
+      <li>QUIM007 - QUÍMICA GENERAL</li>
+    </ul>
+  </section>
 
-  // Segundo año - 4 semestre
-  { codigo: "CIAN113", nombre: "ETOLOGIA Y BIENESTAR ANIMAL", abre: [], requisitos: ["CIAN141"] },
-  { codigo: "CIAN161", nombre: "FISIOLOGIA REPRODUCTIVA", abre: ["CIAN262", "CIAN233"], requisitos: ["ANAV140", "ANAV131"] },
-  { codigo: "CIDI023", nombre: "INGLES I", abre: [], requisitos: [] },
-  { codigo: "FARM202", nombre: "FISIOPATOLÓGIA VETERINARIA", abre: ["FARM211", "PANI238", "HOVE272"], requisitos: ["FARM151", "PANI142"] },
-  { codigo: "MEPR235", nombre: "ENFERMEDADES INFECCIOSAS DE LOS ANIMALES DOMÉSTICOS", abre: [], requisitos: ["BIMI165"] },
-  { codigo: "PANI142", nombre: "PATOLOGÍA GENERAL", abre: ["PANI238", "PANI239"], requisitos: ["HIPA104", "FARM155"] },
+  <section class="semestre">
+    <h3>2do Semestre</h3>
+    <ul class="materias">
+      <li>
+        ANAV051 - ANATOMÍA VETERINARIA
+        <span class="tooltip">Abre: ANAV140 - MORFOLOGÍA VETERINARIA APLICADA</span>
+      </li>
+      <li>
+        ANAV131 - EMBRIOLOGÍA VETERINARIA
+        <span class="tooltip">Abre: CIAN161 - FISIOLOGÍA REPRODUCTIVA (junto a MORFOLOGÍA VETERINARIA APLICADA)</span>
+      </li>
+      <li>ELECT13 - OFG 2</li>
+      <li>
+        FARM101 - BIOQUÍMICA VETERINARIA
+        <span class="tooltip">Abre: BIMI165 - MICROBIOLOGÍA GENERAL, FARM151 - FISIOLOGÍA VETERINARIA</span>
+      </li>
+      <li>
+        HIPA104 – HISTOLOGÍA
+        <span class="tooltip">Abre: PANI142 - PATOLOGÍA GENERAL (junto a INMUNOLOGÍA)</span>
+      </li>
+      <li>MVET053 - PRÁCTICA INTRODUCCIÓN A LA MEDICINA VETERINARIA II</li>
+    </ul>
+  </section>
+</section>
 
-  // Tercer año - 5 semestre
-  { codigo: "CIAN243", nombre: "NUTRICIÓN Y ALIMENTACIÓN", abre: ["CIAN249", "MEPR200", "CIAN246"], requisitos: ["CIAN141"] },
-  { codigo: "CIAN262", nombre: "REPRODUCCION ANIMAL I", abre: ["CIAN246"], requisitos: ["CIAN161"] },
-  { codigo: "CIDI123", nombre: "INGLES II", abre: [], requisitos: ["CIDI023"] },
-  { codigo: "FARM211", nombre: "FARMACOLOGIA VETERINARIA", abre: ["HOVE215", "HOVE278"], requisitos: ["FARM202"] },
-  { codigo: "MVET102", nombre: "PRÁCTICA BÁSICA", abre: ["MEPR209"], requisitos: ["BIMI030", "CIAN040", "DYRE070", "ELECT12", "MATM003", "MVET013", "QUIM007", "ANAV051", "ANAV131", "ELECT13", "FARM101", "HIPA104", "MVET053", "ANAV140", "BIMI165", "CIAN141", "FARM151", "FARM155", "MEPR132", "CIAN113", "CIAN161", "FARM202", "MEPR235", "PANI142", "CIAN243", "CIAN262", "CIDI123", "FARM211", "PANI238", "PANI239"] },
-  { codigo: "PANI238", nombre: "ENFERMEDADES PARASITARIAS", abre: ["PANI254", "MEPR209", "MEPR216"], requisitos: ["FARM202", "PANI142"] },
-  { codigo: "PANI239", nombre: "PATOLOGIA ESPECIAL E INMUNOPATOLOGIA", abre: ["MEPR200", "PANI254", "HOVE272", "HOVE278", "HOVE292", "MEPR216"], requisitos: ["PANI142", "CIAN243", "FARM211"] },
+<!-- Segundo Año -->
+<section>
+  <h2>Segundo Año</h2>
 
-  // Tercer año - 6 semestre
-  { codigo: "CIAN233", nombre: "REPRODUCCIÓN ANIMAL II", abre: [], requisitos: ["CIAN161"] },
-  { codigo: "CIAN240", nombre: "ECONOMIA Y FUNDAMENTOS DE ADMINISTRACION PECUARIA", abre: ["CIAN248"], requisitos: ["MEPR132"] },
-  { codigo: "CIAN249", nombre: "PRODUCCIÓN DE NO RUMIANTES", abre: ["CIAN244", "CIAN235"], requisitos: ["CIAN243"] },
-  { codigo: "CIDI223", nombre: "INGLES III", abre: [], requisitos: ["CIDI123"] },
-  { codigo: "MEPR200", nombre: "EPIDEMIOLOGÍA VETERINARIA", abre: ["MEPR209", "MEPR216"], requisitos: ["CIAN243", "PANI239"] },
-  { codigo: "PANI253", nombre: "ACUICULTURA Y ENFERMEDADES DE PECES", abre: [], requisitos: [] },
-  { codigo: "PANI254", nombre: "ENFERMEDADES DE AVES", abre: [], requisitos: ["PANI238", "PANI239"] },
+  <section class="semestre">
+    <h3>3er Semestre</h3>
+    <ul class="materias">
+      <li>
+        ANAV140 - MORFOLOGÍA VETERINARIA APLICADA
+        <span class="tooltip">Abre: CIAN161 - FISIOLOGÍA REPRODUCTIVA (junto a EMBRIOLOGÍA VETERINARIA)</span>
+      </li>
+      <li>
+        BIMI165 - MICROBIOLOGÍA GENERAL
+        <span class="tooltip">Abre: MEPR235 - ENFERMEDADES INFECCIOSAS DE LOS ANIMALES DOMÉSTICOS</span>
+      </li>
+      <li>
+        CIAN141 – ZOOTECNIA
+        <span class="tooltip">Abre: CIAN113 - ETÓLOGIA Y BIENESTAR ANIMAL, CIAN243 - NUTRICIÓN Y ALIMENTACIÓN</span>
+      </li>
+      <li>
+        FARM151 - FISIOLOGÍA VETERINARIA
+        <span class="tooltip">Abre: FARM202 - FISIOPATOLOGÍA VETERINARIA</span>
+      </li>
+      <li>
+        FARM155 – INMUNOLOGÍA
+        <span class="tooltip">Abre: PANI142 - PATOLOGÍA GENERAL (junto a HISTOLOGÍA)</span>
+      </li>
+      <li>
+        MEPR132 – BIOESTADÍSTICA
+        <span class="tooltip">Abre: CIAN240 - ECONOMÍA Y FUNDAMENTOS DE ADMINISTRACIÓN PECUARIA, CIAN244 - GENÉTICA PECUARIA (junto a PRODUCCIÓN DE NO RUMIANTES)</span>
+      </li>
+    </ul>
+  </section>
 
-  // Cuarto año - 7 semestre
-  { codigo: "CIAN244", nombre: "GENETICA PECUARIA", abre: [], requisitos: ["MEPR132", "CIAN249"] },
-  { codigo: "CIAN246", nombre: "PRODUCCIÓN DE RUMIANTES I", abre: ["CIAN235", "CIAN248"], requisitos: ["CIAN243", "CIAN262"] },
-  { codigo: "ELECT100", nombre: "OPTATIVO DE ESPECIALIZACIÓN I", abre: [], requisitos: ["CIAN249", "CIAN233", "CIAN240", "MEPR200", "PANI254"] },
-  { codigo: "HOVE215", nombre: "CIRUGÍA GENERAL Y ANESTESIOLOGÍA VETERINARIA", abre: ["HOVE293"], requisitos: ["FARM211"] },
-  { codigo: "HOVE272", nombre: "EXPLORACIÓN CLINICA", abre: ["HOVE279", "HOVE293"], requisitos: ["FARM202", "PANI239"] },
-  { codigo: "HOVE278", nombre: "MEDICINA INTERNA I", abre: ["HOVE294", "HOVE295", "HOVE296"], requisitos: ["FARM211", "PANI239"] },
-  { codigo: "MEPR209", nombre: "PRÁCTICA TRANSFERENCIA TECNOLÓGICA Y SERVICIO VETERINARIO A LA SOCIEDAD", abre: [], requisitos: ["MVET102", "PANI238", "MEPR200"] },
+  <section class="semestre">
+    <h3>4to Semestre</h3>
+    <ul class="materias">
+      <li>CIAN113 - ETÓLOGIA Y BIENESTAR ANIMAL</li>
+      <li>
+        CIAN161 - FISIOLOGÍA REPRODUCTIVA
+        <span class="tooltip">Abre: CIAN262 - REPRODUCCIÓN ANIMAL I, CIAN233 - REPRODUCCIÓN ANIMAL II</span>
+      </li>
+      <li>CIDI023 - INGLÉS I (Abre INGLÉS II)</li>
+      <li>
+        FARM202 - FISIOPATOLOGÍA VETERINARIA
+        <span class="tooltip">Abre: FARM211 - FARMACOLOGÍA VETERINARIA, PANI238 - ENFERMEDADES PARASITARIAS, HOVE272 - EXPLORACIÓN CLÍNICA</span>
+      </li>
+      <li>MEPR235 - ENFERMEDADES INFECCIOSAS DE LOS ANIMALES DOMÉSTICOS</li>
+      <li>
+        PANI142 - PATOLOGÍA GENERAL
+        <span class="tooltip">Abre: PANI238 - ENFERMEDADES PARASITARIAS, PANI239 - PATOLOGÍA ESPECIAL E INMUNOPATOLOGÍA (junto a FISIOPATOLOGÍA VETERINARIA)</span>
+      </li>
+    </ul>
+  </section>
+</section>
 
-  // Cuarto año - 8 semestre
-  { codigo: "CIAN235", nombre: "PRODUCTOS ANIMALES", abre: ["CIAN255"], requisitos: ["CIAN249", "CIAN246"] },
-  { codigo: "CIAN248", nombre: "PRODUCCIÓN DE RUMIANTES II", abre: ["CIAN255"], requisitos: ["CIAN246", "CIAN240"] },
-  { codigo: "ELECT101", nombre: "OPTATIVO DE ESPECIALIZACIÓN II", abre: [], requisitos: ["CIAN249", "CIAN233", "CIAN240", "MEPR200", "PANI254"] },
-  { codigo: "HOVE279", nombre: "MÉTODOS COMPLEMENTARIOS DE DIAGNÓSTICO", abre: ["HOVE294", "HOVE295", "HOVE296"], requisitos: ["HOVE272"] },
-  { codigo: "HOVE292", nombre: "MEDICINA INTERNA II", abre: ["HOVE294", "HOVE295", "HOVE296"], requisitos: ["PANI239"] },
-  { codigo: "HOVE293", nombre: "PATOLOGÍA QUIRÚRGICA Y CIRUGÍA ESPECIAL", abre: ["HOVE294", "HOVE295", "HOVE296"], requisitos: ["HOVE215", "HOVE272"] },
-  { codigo: "MEPR216", nombre: "CONTROL SANITARIO E INOCUIDAD DE ALIMENTOS", abre: ["MEPR210", "MVET207"], requisitos: ["PANI238", "MEPR200", "PANI239"] },
+<!-- Tercer Año -->
+<section>
+  <h2>Tercer Año</h2>
 
-  // Quinto año - 9 semestre
-  { codigo: "CIAN255", nombre: "FORMULACIÓN Y EVALUACIÓN DE PROYECTOS", abre: [], requisitos: ["CIAN235", "CIAN248"] },
-  { codigo: "ELECT112", nombre: "OPTATIVO DE PROFUNDIZACIÓN I", abre: [], requisitos: ["CIAN235", "HOVE278"] },
-  { codigo: "HOVE294", nombre: "CLÍNICA DE RUMIANTES", abre: ["HOVE297"], requisitos: ["HOVE278", "HOVE279", "HOVE292", "HOVE293"] },
-  { codigo: "HOVE295", nombre: "CLÍNICA DE EQUINOS", abre: ["HOVE297"], requisitos: ["HOVE278", "HOVE279", "HOVE292", "HOVE293"] },
-  { codigo: "HOVE296", nombre: "CLÍNICA DE PEQUEÑOS ANIMALES", abre: ["HOVE297"], requisitos: ["HOVE278", "HOVE279", "HOVE292", "HOVE293"] },
-  { codigo: "MEPR210", nombre: "SALUD PÚBLICA VETERINARIA", abre: [], requisitos: ["MEPR216"] },
+  <section class="semestre">
+    <h3>5to Semestre</h3>
+    <ul class="materias">
+      <li>
+        CIAN243 - NUTRICIÓN Y ALIMENTACIÓN
+        <span class="tooltip">Abre: CIAN249 - PRODUCCIÓN DE NO RUMIANTES, MEPR200 - EPIDEMIOLOGÍA VETERINARIA (junto a PAT. ESPECIAL E INMUNOPATOLOGÍA), CIAN246 - PRODUCCIÓN DE RUMIANTES I (junto a REPRODUCCIÓN ANIMAL I)</span>
+      </li>
+      <li>
+        CIAN262 - REPRODUCCIÓN ANIMAL I
+        <span class="tooltip">Abre: CIAN246 - PRODUCCIÓN DE RUMIANTES I (junto a NUTRICIÓN Y ALIMENTACIÓN)</span>
+      </li>
+      <li>CIDI123 - INGLÉS II (Abre INGLÉS III)</li>
+      <li>
+        FARM211 - FARMACOLOGÍA VETERINARIA
+        <span class="tooltip">Abre: HOVE215 - CIRUGÍA GENERAL Y ANESTESIOLOGÍA VETERINARIA, HOVE278 - MEDICINA INTERNA I (junto a PAT. ESPECIAL E INMUNOPATOLOGÍA)</span>
+      </li>
+      <li>
+        MVET102 - PRÁCTICA BÁSICA
+        <span class="tooltip">Se abre al aprobar materias de 1er a 4to semestre. Abre: MEPR209 - PRÁCTICA TRANSFERENCIA TECNOLÓGICA Y SERVICIO VETERINARIO A LA SOCIEDAD (junto a ENF. PARASITARIAS y EPIDEMIOLOGÍA VETERINARIA)</span>
+      </li>
+      <li>
+        PANI238 - ENFERMEDADES PARASITARIAS
+        <span class="tooltip">Abre: PANI254 - ENFERMEDADES DE AVES, MEPR209 - PRÁCTICA TRANSFERENCIA TECNOLÓGICA (junto a PRÁCTICA BÁSICA y EPIDEMIOLOGÍA VETERINARIA), MEPR216 - CONTROL SANITARIO E INOCUIDAD DE ALIMENTOS (junto a EPIDEMIOLOGÍA VETERINARIA y PATOLOGÍA ESPECIAL E INMUNOPATOLOGÍA)</span>
+      </li>
+      <li>
+        PANI239 - PATOLOGÍA ESPECIAL E INMUNOPATOLOGÍA
+        <span class="tooltip">Abre: MEPR200 - EPIDEMIOLOGÍA VETERINARIA (junto a NUTRICIÓN Y ALIMENTACIÓN), PANI254 - ENFERMEDADES DE AVES, HOVE272 - EXPLORACIÓN CLÍNICA (junto a FISIOPATOLOGÍA VETERINARIA), HOVE278 - MEDICINA INTERNA I (junto a FARMACOLOGÍA VETERINARIA), HOVE292 - MEDICINA INTERNA II (junto a ENFERMEDADES PARASITARIAS y EPIDEMIOLOGÍA VETERINARIA)</span>
+      </li>
+    </ul>
+  </section>
 
-  // Quinto año - 10 semestre
-  { codigo: "ELECT116", nombre: "OPTATIVO DE PROFUNDIZACIÓN II", abre: [], requisitos: ["HOVE296"] },
-  { codigo: "HOVE297", nombre: "INTERNADO CLÍNICO", abre: [], requisitos: ["HOVE294", "HOVE295", "HOVE296"] },
-  { codigo: "MVET207", nombre: "PRACTICA PROFESIONAL DE INSPECCION VETERINARIA DE ALIMENTOS", abre: [], requisitos: ["MEPR216"] },
-  { codigo: "MVET208", nombre: "PRÁCTICA PROFESIONAL", abre: [], requisitos: ["HOVE297"] },
-  { codigo: "MVET299", nombre: "PROYECTO DE TÍTULO (a)", abre: [], requisitos: ["HOVE297"] }
-];
+  <section class="semestre">
+    <h3>6to Semestre</h3>
+    <ul class="materias">
+      <li>CIAN233 - REPRODUCCIÓN ANIMAL II</li>
+      <li>
+        CIAN240 - ECONOMÍA Y FUNDAMENTOS DE ADMINISTRACIÓN PECUARIA
+        <span class="tooltip">Abre: CIAN248 - PRODUCCIÓN DE RUMIANTES II (junto a PRODUCCIÓN DE RUMIANTES I)</span>
+      </li>
+      <li>
+        CIAN249 - PRODUCCIÓN DE NO RUMIANTES
+        <span class="tooltip">Abre: CIAN244 - GENÉTICA PECUARIA (junto a BIOESTADÍSTICA), CIAN235 - PRODUCTOS ANIMALES (junto a PRODUCCIÓN DE RUMIANTES I)</span>
+      </li>
+      <li>CIDI223 - INGLÉS III</li>
+      <li>
+        MEPR200 - EPIDEMIOLOGÍA VETERINARIA
+        <span class="tooltip">Abre: MEPR209 - PRÁCTICA TRANSFERENCIA TECNOLÓGICA (junto a ENFERMEDADES PARASITARIAS y PATOLOGÍA ESPECIAL E INMUNOPATOLOGÍA), MEPR216 - CONTROL SANITARIO E INOCUIDAD DE ALIMENTOS (junto a ENFERMEDADES PARASITARIAS y PATOLOGÍA ESPECIAL E INMUNOPATOLOGÍA)</span>
+      </li>
+      <li>PANI253 - ACUICULTURA Y ENFERMEDADES DE PECES</li>
+      <li>PANI254 - ENFERMEDADES DE AVES</li>
+    </ul>
+  </section>
+</section>
 
-function crearRamoHTML(ramo) {
-  const div = document.createElement("div");
-  div.className = "ramo bloqueado";
-  div.id = ramo.codigo;
-  div.innerHTML = `
-    <div class="nombre">${ramo.nombre}</div>
-    <div class="codigo">${ramo.codigo}</div>
-  `;
-  div.onclick = () => aprobarRamo(ramo);
-  return div;
-}
+<!-- Cuarto Año -->
+<section>
+  <h2>Cuarto Año</h2>
 
-function aprobarRamo(ramo) {
-  const div = document.getElementById(ramo.codigo);
-  if (div.classList.contains("aprobado")) return;
+  <section class="semestre">
+    <h3>7mo Semestre</h3>
+    <ul class="materias">
+      <li>CIAN244 - GENÉTICA PECUARIA</li>
+      <li>
+        CIAN246 - PRODUCCIÓN DE RUMIANTES I
+        <span class="tooltip">Abre: CIAN235 - PRODUCTOS ANIMALES (junto a PRODUCCIÓN DE NO RUMIANTES), CIAN248 - PRODUCCIÓN DE RUMIANTES II (junto a ECONOMÍA Y FUNDAMENTOS DE ADMINISTRACIÓN PECUARIA)</span>
+      </li>
+      <li>ELECT100 - OPTATIVO DE ESPECIALIZACIÓN I (Requiere aprobación 1° a 6° semestre)</li>
+      <li>
+        HOVE215 - CIRUGÍA GENERAL Y ANESTESIOLOGÍA VETERINARIA
+        <span class="tooltip">Abre: HOVE293 - PATOLOGÍA QUIRÚRGICA Y CIRUGÍA ESPECIAL (junto a EXPLORACIÓN CLÍNICA)</span>
+      </li>
+      <li>
+        HOVE272 - EXPLORACIÓN CLÍNICA
+        <span class="tooltip">Abre: HOVE279 - MÉTODOS COMPLEMENTARIOS DE DIAGNÓSTICO, HOVE293 - PATOLOGÍA QUIRÚRGICA Y CIRUGÍA ESPECIAL (junto a CIRUGÍA GENERAL Y ANESTESIOLOGÍA)</span>
+      </li>
+      <li>
+        HOVE278 - MEDICINA INTERNA I
+        <span class="tooltip">Abre: HOVE294 - CLÍNICA DE RUMIANTES, HOVE295 - CLÍNICA DE EQUINOS, HOVE296 - CLÍNICA DE PEQUEÑOS ANIMALES (junto a MEDICINA INTERNA II, MÉTODOS COMPLEMENTARIOS Y PATOLOGÍA QUIRÚRGICA)</span>
+      </li>
+      <li>MEPR209 - PRÁCTICA TRANSFERENCIA TECNOLÓGICA Y SERVICIO VETERINARIO A LA SOCIEDAD</li>
+    </ul>
+  </section>
 
-  div.classList.add("aprobado");
+  <section class="semestre">
+    <h3>8vo Semestre</h3>
+    <ul class="materias">
+      <li>
+        CIAN235 - PRODUCTOS ANIMALES
+        <span class="tooltip">Abre: CIAN255 - FORMULACIÓN Y EVALUACIÓN DE PROYECTOS (junto a PRODUCCIÓN DE RUMIANTES II)</span>
+      </li>
+      <li>
+        CIAN248 - PRODUCCIÓN DE RUMIANTES II
+        <span class="tooltip">Abre: CIAN255 - FORMULACIÓN Y EVALUACIÓN DE PROYECTOS (junto a PRODUCTOS ANIMALES)</span>
+      </li>
+      <li>ELECT101 - OPTATIVO DE ESPECIALIZACIÓN II (Requiere aprobación 1° a 6° semestre)</li>
+      <li>
+        HOVE279 - MÉTODOS COMPLEMENTARIOS DE DIAGNÓSTICO
+        <span class="tooltip">Abre: HOVE294 - CLÍNICA DE RUMIANTES, HOVE295 - CLÍNICA DE EQUINOS, HOVE296 - CLÍNICA DE PEQUEÑOS ANIMALES (junto a MEDICINA INTERNA I y II y PATOLOGÍA QUIRÚRGICA)</span>
+      </li>
+      <li>
+        HOVE292 - MEDICINA INTERNA II
+        <span class="tooltip">Abre: HOVE294 - CLÍNICA DE RUMIANTES, HOVE295 - CLÍNICA DE EQUINOS, HOVE296 - CLÍNICA DE PEQUEÑOS ANIMALES (junto a MEDICINA INTERNA I, MÉTODOS COMPLEMENTARIOS Y PATOLOGÍA QUIRÚRGICA)</span>
+      </li>
+      <li>
+        HOVE293 - PATOLOGÍA QUIRÚRGICA Y CIRUGÍA ESPECIAL
+        <span class="tooltip">Abre: HOVE294 - CLÍNICA DE RUMIANTES, HOVE295 - CLÍNICA DE EQUINOS, HOVE296 - CLÍNICA DE PEQUEÑOS ANIMALES (junto a MEDICINA INTERNA I y II, MÉTODOS COMPLEMENTARIOS)</span>
+      </li>
+      <li>
+        MEPR216 - CONTROL SANITARIO E INOCUIDAD DE ALIMENTOS
+        <span class="tooltip">Abre: MEPR210 - SALUD PÚBLICA VETERINARIA, MVET207 - PRÁCTICA PROFESIONAL DE INSPECCIÓN VETERINARIA DE ALIMENTOS</span>
+      </li>
+    </ul>
+  </section>
+</section>
 
-  ramos.forEach(r => {
-    if (r.requisitos.includes(ramo.codigo)) {
-      const desbloqueado = r.requisitos.every(req => document.getElementById(req)?.classList.contains("aprobado"));
-      if (desbloqueado) {
-        document.getElementById(r.codigo)?.classList.remove("bloqueado");
+<!-- Quinto Año -->
+<section>
+  <h2>Quinto Año</h2>
+
+  <section class="semestre">
+    <h3>9no Semestre</h3>
+    <ul class="materias">
+      <li>CIAN255 - FORMULACIÓN Y EVALUACIÓN DE PROYECTOS</li>
+      <li>ELECT112 - OPTATIVO DE PROFUNDIZACIÓN I (Requiere aprobación 1° a 8° semestre)</li>
+      <li>
+        HOVE294 - CLÍNICA DE RUMIANTES
+        <span class="tooltip">Abre: HOVE297 - INTERNADO CLÍNICO (junto a CLÍNICA DE EQUINOS y PEQUEÑOS ANIMALES)</span>
+      </li>
+      <li>
+        HOVE295 - CLÍNICA DE EQUINOS
+        <span class="tooltip">Abre: HOVE297 - INTERNADO CLÍNICO (junto a CLÍNICA DE RUMIANTES y PEQUEÑOS ANIMALES)</span>
+      </li>
+      <li>
+        HOVE296 - CLÍNICA DE PEQUEÑOS ANIMALES
+        <span class="tooltip">Abre: HOVE297 - INTERNADO CLÍNICO (junto a CLÍNICA DE EQUINOS y RUMIANTES)</span>
+      </li>
+      <li>MEPR210 - SALUD PÚBLICA VETERINARIA</li>
+    </ul>
+  </section>
+
+  <section class="semestre">
+    <h3>10mo Semestre</h3>
+    <ul class="materias">
+      <li>ELECT116 - OPTATIVO DE PROFUNDIZACIÓN II (Requiere aprobación 1° a 9° semestre)</li>
+      <li>HOVE297 - INTERNADO CLÍNICO</li>
+      <li>MVET207 - PRÁCTICA PROFESIONAL DE INSPECCIÓN VETERINARIA DE ALIMENTOS</li>
+      <li>
+        MVET208 - PRÁCTICA PROFESIONAL
+        <span class="tooltip">Se abre al aprobar materias desde 1° a 10° semestre</span>
+      </li>
+      <li>
+        MVET299 - PROYECTO DE TÍTULO (a)
+        <span class="tooltip">Se abre al aprobar materias desde 1° a 10° semestre</span>
+      </li>
+    </ul>
+  </section>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const materias = document.querySelectorAll('ul.materias li');
+
+    materias.forEach(li => {
+      const tooltip = li.querySelector('.tooltip');
+      if(tooltip){
+        tooltip.style.visibility = 'hidden';
+
+        li.addEventListener('click', (e) => {
+          e.stopPropagation();
+
+          materias.forEach(otherLi => {
+            if(otherLi !== li){
+              const otherTooltip = otherLi.querySelector('.tooltip');
+              if(otherTooltip) otherTooltip.style.visibility = 'hidden';
+            }
+          });
+
+          tooltip.style.visibility = (tooltip.style.visibility === 'visible') ? 'hidden' : 'visible';
+        });
       }
-    }
+    });
+
+    document.body.addEventListener('click', () => {
+      materias.forEach(li => {
+        const tooltip = li.querySelector('.tooltip');
+        if(tooltip){
+          tooltip.style.visibility = 'hidden';
+        }
+      });
+    });
   });
-}
+</script>
 
-function inicializarMalla() {
-  const contenedor = document.getElementById("malla");
-  ramos.forEach(ramo => {
-    const div = crearRamoHTML(ramo);
-    if (ramo.requisitos.length === 0) div.classList.remove("bloqueado");
-    contenedor.appendChild(div);
-  });
-}
-
-document.addEventListener("DOMContentLoaded", inicializarMalla);
-
+</body>
+</html>
