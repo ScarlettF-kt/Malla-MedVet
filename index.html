@@ -1,372 +1,320 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Malla Curricular Medicina Veterinaria</title>
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-    background: #f9f9f9;
-  }
-  h1, h2 {
-    color: #2c3e50;
-  }
-  section.semestre {
-    background: white;
-    padding: 15px 20px;
-    margin-bottom: 15px;
-    border-radius: 8px;
-    box-shadow: 0 0 6px #ccc;
-  }
-  ul.materias {
-    list-style: none;
-    padding-left: 0;
-  }
-  ul.materias li {
-    padding: 6px 10px;
-    border-bottom: 1px solid #eee;
-    cursor: pointer;
-    position: relative;
-  }
-  ul.materias li:last-child {
-    border-bottom: none;
-  }
-  ul.materias li:hover {
-    background-color: #dff0d8;
-  }
-  /* Tooltip oculto por defecto */
-  ul.materias li .tooltip {
-    visibility: hidden;
-    background-color: #333;
-    color: #fff;
-    text-align: left;
-    border-radius: 6px;
-    padding: 5px 10px;
-    position: absolute;
-    z-index: 10;
-    top: 50%;
-    left: 105%;
-    transform: translateY(-50%);
-    width: max-content;
-    max-width: 320px;
-    font-size: 0.9em;
-    transition: visibility 0.2s ease-in-out;
-    box-shadow: 0 0 8px rgba(0,0,0,0.3);
-  }
-</style>
-</head>
-<body>
+import React, { useState, useEffect } from "react";
 
-<h1>Malla Curricular Medicina Veterinaria</h1>
+const malla = {
+  "1": [
+    { codigo: "BIMI030", nombre: "BIOLOGIA CELULAR", prerrequisitos: [], abre_a: ["FARM101", "HIPA104", "FARM155"] },
+    { codigo: "CIAN040", nombre: "ZOOLOGIA Y ECOLOGIA APLICADA", prerrequisitos: [], abre_a: ["CIAN141"] },
+    { codigo: "DYRE070", nombre: "EDUCACIÓN FÍSICA Y SALUD", prerrequisitos: [], abre_a: [] },
+    { codigo: "ELECT12", nombre: "OFG 1", prerrequisitos: [], abre_a: [] },
+    { codigo: "MATM003", nombre: "ELEMENTOS DE CALCULO", prerrequisitos: [], abre_a: ["MEPR132"] },
+    { codigo: "MVET013", nombre: "PRACTICA INTRODUCCION A LA MEDICINA VETERINARIA I", prerrequisitos: [], abre_a: ["MVET053"] },
+    { codigo: "QUIM007", nombre: "QUIMICA GENERAL", prerrequisitos: [], abre_a: [] }
+  ],
+  "2": [
+    { codigo: "ANAV051", nombre: "ANATOMIA VETERINARIA", prerrequisitos: [], abre_a: ["ANAV140"] },
+    { codigo: "ANAV131", nombre: "EMBRIOLOGIA VETERINARIA", prerrequisitos: [], abre_a: ["CIAN161"] },
+    { codigo: "ELECT13", nombre: "OFG 2", prerrequisitos: [], abre_a: [] },
+    { codigo: "FARM101", nombre: "BIOQUIMICA VETERINARIA", prerrequisitos: ["BIMI030"], abre_a: ["BIMI165", "FARM151"] },
+    { codigo: "HIPA104", nombre: "HISTOLOGIA", prerrequisitos: [], abre_a: ["PANI142"] },
+    { codigo: "MVET053", nombre: "PRACTICA INTRODUCCION A LA MEDICINA VETERINARIA II", prerrequisitos: ["MVET013"], abre_a: [] }
+  ],
+  "3": [
+    { codigo: "ANAV140", nombre: "MORFOLOGÍA VETERINARIA APLICADA", prerrequisitos: ["ANAV051"], abre_a: ["CIAN161"] },
+    { codigo: "BIMI165", nombre: "MICROBIOLOGÍA GENERAL", prerrequisitos: ["FARM101"], abre_a: ["MEPR235"] },
+    { codigo: "CIAN141", nombre: "ZOOTECNIA", prerrequisitos: ["CIAN040"], abre_a: ["CIAN113", "CIAN243"] },
+    { codigo: "FARM151", nombre: "FISIOLOGÍA VETERINARIA", prerrequisitos: ["FARM101"], abre_a: ["FARM202"] },
+    { codigo: "FARM155", nombre: "INMUNOLOGÍA", prerrequisitos: ["BIMI030"], abre_a: ["PANI142"] },
+    { codigo: "MEPR132", nombre: "BIOESTADISTICA", prerrequisitos: ["MATM003"], abre_a: ["CIAN240", "CIAN244"] }
+  ],
+  "4": [
+    { codigo: "CIAN113", nombre: "ETOLOGIA Y BIENESTAR ANIMAL", prerrequisitos: ["CIAN141"], abre_a: [] },
+    { codigo: "CIAN161", nombre: "FISIOLOGIA REPRODUCTIVA", prerrequisitos: ["ANAV131", "ANAV140"], abre_a: ["CIAN262", "CIAN233"] },
+    { codigo: "CIDI023", nombre: "INGLES I", prerrequisitos: [], abre_a: ["CIDI123"] },
+    { codigo: "FARM202", nombre: "FISIOPATOLOGÍA VETERINARIA", prerrequisitos: ["FARM151"], abre_a: ["FARM211", "PANI238", "HOVE272"] },
+    { codigo: "MEPR235", nombre: "ENFERMEDADES INFECCIOSAS DE LOS ANIMALES DOMÉSTICOS", prerrequisitos: ["BIMI165"], abre_a: [] },
+    { codigo: "PANI142", nombre: "PATOLOGÍA GENERAL", prerrequisitos: ["HIPA104", "FARM155"], abre_a: ["PANI238", "PANI239"] }
+  ],
+  "5": [
+    { codigo: "CIAN243", nombre: "NUTRICIÓN Y ALIMENTACIÓN", prerrequisitos: ["CIAN141"], abre_a: ["CIAN249", "MEPR200", "CIAN246"] },
+    { codigo: "CIAN262", nombre: "REPRODUCCION ANIMAL I", prerrequisitos: ["CIAN161"], abre_a: ["CIAN246"] },
+    { codigo: "CIDI123", nombre: "INGLES II", prerrequisitos: ["CIDI023"], abre_a: [] },
+    { codigo: "FARM211", nombre: "FARMACOLOGIA VETERINARIA", prerrequisitos: ["FARM202"], abre_a: ["HOVE215", "HOVE278"] },
+    {
+      codigo: "MVET102",
+      nombre: "PRÁCTICA BÁSICA",
+      prerrequisitos: [
+        "BIMI030", "CIAN040", "DYRE070", "ELECT12", "MATM003", "MVET013", "QUIM007",
+        "ANAV051", "ANAV131", "ELECT13", "FARM101", "HIPA104", "MVET053"
+      ],
+      abre_a: ["MEPR209"]
+    },
+    { codigo: "PANI238", nombre: "ENFERMEDADES PARASITARIAS", prerrequisitos: ["PANI142"], abre_a: ["PANI254", "MEPR209", "MEPR216"] },
+    {
+      codigo: "PANI239",
+      nombre: "PATOLOGIA ESPECIAL E INMUNOPATOLOGIA",
+      prerrequisitos: ["PANI142", "CIAN243", "FARM202", "FARM211"],
+      abre_a: ["MEPR200", "PANI254", "HOVE272", "HOVE278", "HOVE292", "MEPR216"]
+    }
+  ],
+  "6": [
+    { codigo: "CIAN233", nombre: "REPRODUCCIÓN ANIMAL II", prerrequisitos: ["CIAN161"], abre_a: [] },
+    { codigo: "CIAN240", nombre: "ECONOMIA Y FUNDAMENTOS DE ADMINISTRACION PECUARIA", prerrequisitos: ["MEPR132"], abre_a: ["CIAN248"] },
+    { codigo: "CIAN249", nombre: "PRODUCCIÓN DE NO RUMIANTES", prerrequisitos: ["CIAN141", "CIAN246"], abre_a: ["CIAN244", "CIAN235"] },
+    { codigo: "CIDI223", nombre: "INGLES III", prerrequisitos: ["CIDI123"], abre_a: [] },
+    { codigo: "MEPR200", nombre: "EPIDEMIOLOGÍA VETERINARIA", prerrequisitos: ["BIMI165", "PANI238", "MVET102"], abre_a: ["MEPR209", "MEPR216"] },
+    { codigo: "PANI253", nombre: "ACUICULTURA Y ENFERMEDADES DE PECES", prerrequisitos: [], abre_a: [] },
+    { codigo: "PANI254", nombre: "ENFERMEDADES DE AVES", prerrequisitos: ["PANI238", "PANI239"], abre_a: [] }
+  ],
+  "7": [
+    { codigo: "CIAN244", nombre: "GENETICA PECUARIA", prerrequisitos: ["CIAN249"], abre_a: [] },
+    {
+      codigo: "CIAN246",
+      nombre: "PRODUCCIÓN DE RUMIANTES I",
+      prerrequisitos: ["CIAN243", "CIAN262"],
+      abre_a: ["CIAN235", "CIAN248"]
+    },
+    {
+      codigo: "ELECT100",
+      nombre: "OPTATIVO DE ESPECIALIZACIÓN I",
+      prerrequisitos: [
+        "BIMI030", "CIAN040", "DYRE070", "ELECT12", "MATM003", "MVET013", "QUIM007",
+        "ANAV051", "ANAV131", "ELECT13", "FARM101", "HIPA104", "MVET053", "ANAV140",
+        "BIMI165", "CIAN141", "FARM151", "FARM155", "MEPR132", "CIAN113", "CIAN161",
+        "CIDI023", "FARM202", "MEPR235", "PANI142", "CIAN243", "CIAN262", "CIDI123",
+        "FARM211", "MVET102", "PANI238", "PANI239", "CIAN233", "CIAN240", "CIAN249",
+        "CIDI223", "MEPR200", "PANI253", "PANI254"
+      ],
+      abre_a: []
+    },
+    { codigo: "HOVE215", nombre: "CIRUGÍA GENERAL Y ANESTESIOLOGÍA VETERINARIA", prerrequisitos: ["FARM211"], abre_a: ["HOVE293"] },
+    { codigo: "HOVE272", nombre: "EXPLORACIÓN CLINICA", prerrequisitos: ["FARM202"], abre_a: ["HOVE279", "HOVE293"] },
+    { codigo: "HOVE278", nombre: "MEDICINA INTERNA I", prerrequisitos: ["FARM211", "PANI239"], abre_a: ["HOVE292", "HOVE294", "HOVE295", "HOVE296"] },
+    {
+      codigo: "MEPR209",
+      nombre: "PRÁCTICA TRANSFERENCIA TECNOLÓGICA Y SERVICIO VETERINARIO A LA SOCIEDAD",
+      prerrequisitos: ["MVET102", "PANI238", "MEPR200"],
+      abre_a: []
+    }
+  ],
+  "8": [
+    { codigo: "CIAN235", nombre: "PRODUCTOS ANIMALES", prerrequisitos: ["CIAN249"], abre_a: ["CIAN255"] },
+    { codigo: "CIAN248", nombre: "PRODUCCIÓN DE RUMIANTES II", prerrequisitos: ["CIAN246", "CIAN240"], abre_a: ["CIAN255"] },
+    {
+      codigo: "ELECT101",
+      nombre: "OPTATIVO DE ESPECIALIZACIÓN II",
+      prerrequisitos: [
+        "BIMI030", "CIAN040", "DYRE070", "ELECT12", "MATM003", "MVET013", "QUIM007",
+        "ANAV051", "ANAV131", "ELECT13", "FARM101", "HIPA104", "MVET053", "ANAV140",
+        "BIMI165", "CIAN141", "FARM151", "FARM155", "MEPR132", "CIAN113", "CIAN161",
+        "CIDI023", "FARM202", "MEPR235", "PANI142", "CIAN243", "CIAN262", "CIDI123",
+        "FARM211", "MVET102", "PANI238", "PANI239", "CIAN233", "CIAN240", "CIAN249",
+        "CIDI223", "MEPR200", "PANI253", "PANI254"
+      ],
+      abre_a: []
+    },
+    {
+      codigo: "HOVE279",
+      nombre: "MÉTODOS COMPLEMENTARIOS DE DIAGNÓSTICO",
+      prerrequisitos: ["HOVE272", "HOVE278", "FARM202", "PANI238", "HOVE293"],
+      abre_a: ["HOVE294", "HOVE295", "HOVE296"]
+    },
+    {
+      codigo: "HOVE292",
+      nombre: "MEDICINA INTERNA II",
+      prerrequisitos: ["HOVE278", "HOVE279", "HOVE293"],
+      abre_a: ["HOVE294", "HOVE295", "HOVE296"]
+    },
+    {
+      codigo: "HOVE293",
+      nombre: "PATOLOGÍA QUIRÚRGICA Y CIRUGÍA ESPECIAL",
+      prerrequisitos: ["HOVE215", "HOVE272", "HOVE279"],
+      abre_a: ["HOVE294", "HOVE295", "HOVE296"]
+    },
+    {
+      codigo: "MEPR216",
+      nombre: "CONTROL SANITARIO E INOCUIDAD DE ALIMENTOS",
+      prerrequisitos: ["PANI238", "PANI239"],
+      abre_a: ["MEPR210", "MVET207"]
+    }
+  ],
+  "9": [
+    { codigo: "CIAN255", nombre: "FORMULACIÓN Y EVALUACIÓN DE PROYECTOS", prerrequisitos: ["CIAN235", "CIAN248"], abre_a: [] },
+    {
+      codigo: "ELECT112",
+      nombre: "OPTATIVO DE PROFUNDIZACIÓN I",
+      prerrequisitos: [
+        "BIMI030", "CIAN040", "DYRE070", "ELECT12", "MATM003", "MVET013", "QUIM007",
+        "ANAV051", "ANAV131", "ELECT13", "FARM101", "HIPA104", "MVET053", "ANAV140",
+        "BIMI165", "CIAN141", "FARM151", "FARM155", "MEPR132", "CIAN113", "CIAN161",
+        "CIDI023", "FARM202", "MEPR235", "PANI142", "CIAN243", "CIAN262", "CIDI123",
+        "FARM211", "MVET102", "PANI238", "PANI239", "CIAN233", "CIAN240", "CIAN249",
+        "CIDI223", "MEPR200", "PANI253", "PANI254", "CIAN244", "CIAN246", "ELECT100",
+        "HOVE215", "HOVE272", "HOVE278", "MEPR209"
+      ],
+      abre_a: []
+    },
+    { codigo: "HOVE294", nombre: "CLÍNICA DE RUMIANTES", prerrequisitos: ["HOVE278", "HOVE279", "HOVE293"], abre_a: ["HOVE297"] },
+    { codigo: "HOVE295", nombre: "CLÍNICA DE EQUINOS", prerrequisitos: ["HOVE278", "HOVE279", "HOVE293"], abre_a: ["HOVE297"] },
+    { codigo: "HOVE296", nombre: "CLÍNICA DE PEQUEÑOS ANIMALES", prerrequisitos: ["HOVE278", "HOVE279", "HOVE293"], abre_a: ["HOVE297"] },
+    { codigo: "MEPR210", nombre: "SALUD PÚBLICA VETERINARIA", prerrequisitos: ["MEPR216"], abre_a: ["MVET207"] }
+  ],
+  "10": [
+    { codigo: "ELECT116", nombre: "OPTATIVO DE PROFUNDIZACIÓN II", prerrequisitos: Object.keys(malla).flatMap(k => malla[k].map(m => m.codigo)), abre_a: [] },
+    { codigo: "HOVE297", nombre: "INTERNADO CLÍNICO", prerrequisitos: ["HOVE294", "HOVE295", "HOVE296"], abre_a: [] },
+    { codigo: "MVET207", nombre: "PRACTICA PROFESIONAL DE INSPECCION VETERINARIA DE ALIMENTOS", prerrequisitos: ["MEPR216"], abre_a: [] },
+    {
+      codigo: "MVET208",
+      nombre: "PRÁCTICA PROFESIONAL",
+      prerrequisitos: Object.keys(malla).flatMap(k => malla[k].map(m => m.codigo)),
+      abre_a: []
+    },
+    {
+      codigo: "MVET299",
+      nombre: "PROYECTO DE TÍTULO (a)",
+      prerrequisitos: Object.keys(malla).flatMap(k => malla[k].map(m => m.codigo)),
+      abre_a: []
+    }
+  ]
+};
 
-<!-- Primer Año -->
-<section>
-  <h2>Primer Año</h2>
-
-  <section class="semestre">
-    <h3>1er Semestre</h3>
-    <ul class="materias">
-      <li>
-        BIMI030 - BIOLOGÍA CELULAR
-        <span class="tooltip">Abre: FARM101 - BIOQUÍMICA VETERINARIA, HIPA104 – HISTOLOGÍA, FARM155 - INMUNOLOGÍA</span>
-      </li>
-      <li>
-        CIAN040 - ZOOLOGÍA Y ECOLOGÍA APLICADA
-        <span class="tooltip">Abre: CIAN141 – ZOOTECNIA</span>
-      </li>
-      <li>DYRE070 - EDUCACIÓN FÍSICA Y SALUD</li>
-      <li>ELECT12 - OFG 1</li>
-      <li>
-        MATM003 - ELEMENTOS DE CÁLCULO
-        <span class="tooltip">Abre: MEPR132 - BIOESTADÍSTICA</span>
-      </li>
-      <li>
-        MVET013 - PRÁCTICA INTRODUCCIÓN A LA MEDICINA VETERINARIA I
-        <span class="tooltip">Abre: MVET053 - PRÁCTICA INTRODUCCIÓN A LA MEDICINA VETERINARIA II</span>
-      </li>
-      <li>QUIM007 - QUÍMICA GENERAL</li>
-    </ul>
-  </section>
-
-  <section class="semestre">
-    <h3>2do Semestre</h3>
-    <ul class="materias">
-      <li>
-        ANAV051 - ANATOMÍA VETERINARIA
-        <span class="tooltip">Abre: ANAV140 - MORFOLOGÍA VETERINARIA APLICADA</span>
-      </li>
-      <li>
-        ANAV131 - EMBRIOLOGÍA VETERINARIA
-        <span class="tooltip">Abre: CIAN161 - FISIOLOGÍA REPRODUCTIVA (junto a MORFOLOGÍA VETERINARIA APLICADA)</span>
-      </li>
-      <li>ELECT13 - OFG 2</li>
-      <li>
-        FARM101 - BIOQUÍMICA VETERINARIA
-        <span class="tooltip">Abre: BIMI165 - MICROBIOLOGÍA GENERAL, FARM151 - FISIOLOGÍA VETERINARIA</span>
-      </li>
-      <li>
-        HIPA104 – HISTOLOGÍA
-        <span class="tooltip">Abre: PANI142 - PATOLOGÍA GENERAL (junto a INMUNOLOGÍA)</span>
-      </li>
-      <li>MVET053 - PRÁCTICA INTRODUCCIÓN A LA MEDICINA VETERINARIA II</li>
-    </ul>
-  </section>
-</section>
-
-<!-- Segundo Año -->
-<section>
-  <h2>Segundo Año</h2>
-
-  <section class="semestre">
-    <h3>3er Semestre</h3>
-    <ul class="materias">
-      <li>
-        ANAV140 - MORFOLOGÍA VETERINARIA APLICADA
-        <span class="tooltip">Abre: CIAN161 - FISIOLOGÍA REPRODUCTIVA (junto a EMBRIOLOGÍA VETERINARIA)</span>
-      </li>
-      <li>
-        BIMI165 - MICROBIOLOGÍA GENERAL
-        <span class="tooltip">Abre: MEPR235 - ENFERMEDADES INFECCIOSAS DE LOS ANIMALES DOMÉSTICOS</span>
-      </li>
-      <li>
-        CIAN141 – ZOOTECNIA
-        <span class="tooltip">Abre: CIAN113 - ETÓLOGIA Y BIENESTAR ANIMAL, CIAN243 - NUTRICIÓN Y ALIMENTACIÓN</span>
-      </li>
-      <li>
-        FARM151 - FISIOLOGÍA VETERINARIA
-        <span class="tooltip">Abre: FARM202 - FISIOPATOLOGÍA VETERINARIA</span>
-      </li>
-      <li>
-        FARM155 – INMUNOLOGÍA
-        <span class="tooltip">Abre: PANI142 - PATOLOGÍA GENERAL (junto a HISTOLOGÍA)</span>
-      </li>
-      <li>
-        MEPR132 – BIOESTADÍSTICA
-        <span class="tooltip">Abre: CIAN240 - ECONOMÍA Y FUNDAMENTOS DE ADMINISTRACIÓN PECUARIA, CIAN244 - GENÉTICA PECUARIA (junto a PRODUCCIÓN DE NO RUMIANTES)</span>
-      </li>
-    </ul>
-  </section>
-
-  <section class="semestre">
-    <h3>4to Semestre</h3>
-    <ul class="materias">
-      <li>CIAN113 - ETÓLOGIA Y BIENESTAR ANIMAL</li>
-      <li>
-        CIAN161 - FISIOLOGÍA REPRODUCTIVA
-        <span class="tooltip">Abre: CIAN262 - REPRODUCCIÓN ANIMAL I, CIAN233 - REPRODUCCIÓN ANIMAL II</span>
-      </li>
-      <li>CIDI023 - INGLÉS I (Abre INGLÉS II)</li>
-      <li>
-        FARM202 - FISIOPATOLOGÍA VETERINARIA
-        <span class="tooltip">Abre: FARM211 - FARMACOLOGÍA VETERINARIA, PANI238 - ENFERMEDADES PARASITARIAS, HOVE272 - EXPLORACIÓN CLÍNICA</span>
-      </li>
-      <li>MEPR235 - ENFERMEDADES INFECCIOSAS DE LOS ANIMALES DOMÉSTICOS</li>
-      <li>
-        PANI142 - PATOLOGÍA GENERAL
-        <span class="tooltip">Abre: PANI238 - ENFERMEDADES PARASITARIAS, PANI239 - PATOLOGÍA ESPECIAL E INMUNOPATOLOGÍA (junto a FISIOPATOLOGÍA VETERINARIA)</span>
-      </li>
-    </ul>
-  </section>
-</section>
-
-<!-- Tercer Año -->
-<section>
-  <h2>Tercer Año</h2>
-
-  <section class="semestre">
-    <h3>5to Semestre</h3>
-    <ul class="materias">
-      <li>
-        CIAN243 - NUTRICIÓN Y ALIMENTACIÓN
-        <span class="tooltip">Abre: CIAN249 - PRODUCCIÓN DE NO RUMIANTES, MEPR200 - EPIDEMIOLOGÍA VETERINARIA (junto a PAT. ESPECIAL E INMUNOPATOLOGÍA), CIAN246 - PRODUCCIÓN DE RUMIANTES I (junto a REPRODUCCIÓN ANIMAL I)</span>
-      </li>
-      <li>
-        CIAN262 - REPRODUCCIÓN ANIMAL I
-        <span class="tooltip">Abre: CIAN246 - PRODUCCIÓN DE RUMIANTES I (junto a NUTRICIÓN Y ALIMENTACIÓN)</span>
-      </li>
-      <li>CIDI123 - INGLÉS II (Abre INGLÉS III)</li>
-      <li>
-        FARM211 - FARMACOLOGÍA VETERINARIA
-        <span class="tooltip">Abre: HOVE215 - CIRUGÍA GENERAL Y ANESTESIOLOGÍA VETERINARIA, HOVE278 - MEDICINA INTERNA I (junto a PAT. ESPECIAL E INMUNOPATOLOGÍA)</span>
-      </li>
-      <li>
-        MVET102 - PRÁCTICA BÁSICA
-        <span class="tooltip">Se abre al aprobar materias de 1er a 4to semestre. Abre: MEPR209 - PRÁCTICA TRANSFERENCIA TECNOLÓGICA Y SERVICIO VETERINARIO A LA SOCIEDAD (junto a ENF. PARASITARIAS y EPIDEMIOLOGÍA VETERINARIA)</span>
-      </li>
-      <li>
-        PANI238 - ENFERMEDADES PARASITARIAS
-        <span class="tooltip">Abre: PANI254 - ENFERMEDADES DE AVES, MEPR209 - PRÁCTICA TRANSFERENCIA TECNOLÓGICA (junto a PRÁCTICA BÁSICA y EPIDEMIOLOGÍA VETERINARIA), MEPR216 - CONTROL SANITARIO E INOCUIDAD DE ALIMENTOS (junto a EPIDEMIOLOGÍA VETERINARIA y PATOLOGÍA ESPECIAL E INMUNOPATOLOGÍA)</span>
-      </li>
-      <li>
-        PANI239 - PATOLOGÍA ESPECIAL E INMUNOPATOLOGÍA
-        <span class="tooltip">Abre: MEPR200 - EPIDEMIOLOGÍA VETERINARIA (junto a NUTRICIÓN Y ALIMENTACIÓN), PANI254 - ENFERMEDADES DE AVES, HOVE272 - EXPLORACIÓN CLÍNICA (junto a FISIOPATOLOGÍA VETERINARIA), HOVE278 - MEDICINA INTERNA I (junto a FARMACOLOGÍA VETERINARIA), HOVE292 - MEDICINA INTERNA II (junto a ENFERMEDADES PARASITARIAS y EPIDEMIOLOGÍA VETERINARIA)</span>
-      </li>
-    </ul>
-  </section>
-
-  <section class="semestre">
-    <h3>6to Semestre</h3>
-    <ul class="materias">
-      <li>CIAN233 - REPRODUCCIÓN ANIMAL II</li>
-      <li>
-        CIAN240 - ECONOMÍA Y FUNDAMENTOS DE ADMINISTRACIÓN PECUARIA
-        <span class="tooltip">Abre: CIAN248 - PRODUCCIÓN DE RUMIANTES II (junto a PRODUCCIÓN DE RUMIANTES I)</span>
-      </li>
-      <li>
-        CIAN249 - PRODUCCIÓN DE NO RUMIANTES
-        <span class="tooltip">Abre: CIAN244 - GENÉTICA PECUARIA (junto a BIOESTADÍSTICA), CIAN235 - PRODUCTOS ANIMALES (junto a PRODUCCIÓN DE RUMIANTES I)</span>
-      </li>
-      <li>CIDI223 - INGLÉS III</li>
-      <li>
-        MEPR200 - EPIDEMIOLOGÍA VETERINARIA
-        <span class="tooltip">Abre: MEPR209 - PRÁCTICA TRANSFERENCIA TECNOLÓGICA (junto a ENFERMEDADES PARASITARIAS y PATOLOGÍA ESPECIAL E INMUNOPATOLOGÍA), MEPR216 - CONTROL SANITARIO E INOCUIDAD DE ALIMENTOS (junto a ENFERMEDADES PARASITARIAS y PATOLOGÍA ESPECIAL E INMUNOPATOLOGÍA)</span>
-      </li>
-      <li>PANI253 - ACUICULTURA Y ENFERMEDADES DE PECES</li>
-      <li>PANI254 - ENFERMEDADES DE AVES</li>
-    </ul>
-  </section>
-</section>
-
-<!-- Cuarto Año -->
-<section>
-  <h2>Cuarto Año</h2>
-
-  <section class="semestre">
-    <h3>7mo Semestre</h3>
-    <ul class="materias">
-      <li>CIAN244 - GENÉTICA PECUARIA</li>
-      <li>
-        CIAN246 - PRODUCCIÓN DE RUMIANTES I
-        <span class="tooltip">Abre: CIAN235 - PRODUCTOS ANIMALES (junto a PRODUCCIÓN DE NO RUMIANTES), CIAN248 - PRODUCCIÓN DE RUMIANTES II (junto a ECONOMÍA Y FUNDAMENTOS DE ADMINISTRACIÓN PECUARIA)</span>
-      </li>
-      <li>ELECT100 - OPTATIVO DE ESPECIALIZACIÓN I (Requiere aprobación 1° a 6° semestre)</li>
-      <li>
-        HOVE215 - CIRUGÍA GENERAL Y ANESTESIOLOGÍA VETERINARIA
-        <span class="tooltip">Abre: HOVE293 - PATOLOGÍA QUIRÚRGICA Y CIRUGÍA ESPECIAL (junto a EXPLORACIÓN CLÍNICA)</span>
-      </li>
-      <li>
-        HOVE272 - EXPLORACIÓN CLÍNICA
-        <span class="tooltip">Abre: HOVE279 - MÉTODOS COMPLEMENTARIOS DE DIAGNÓSTICO, HOVE293 - PATOLOGÍA QUIRÚRGICA Y CIRUGÍA ESPECIAL (junto a CIRUGÍA GENERAL Y ANESTESIOLOGÍA)</span>
-      </li>
-      <li>
-        HOVE278 - MEDICINA INTERNA I
-        <span class="tooltip">Abre: HOVE294 - CLÍNICA DE RUMIANTES, HOVE295 - CLÍNICA DE EQUINOS, HOVE296 - CLÍNICA DE PEQUEÑOS ANIMALES (junto a MEDICINA INTERNA II, MÉTODOS COMPLEMENTARIOS Y PATOLOGÍA QUIRÚRGICA)</span>
-      </li>
-      <li>MEPR209 - PRÁCTICA TRANSFERENCIA TECNOLÓGICA Y SERVICIO VETERINARIO A LA SOCIEDAD</li>
-    </ul>
-  </section>
-
-  <section class="semestre">
-    <h3>8vo Semestre</h3>
-    <ul class="materias">
-      <li>
-        CIAN235 - PRODUCTOS ANIMALES
-        <span class="tooltip">Abre: CIAN255 - FORMULACIÓN Y EVALUACIÓN DE PROYECTOS (junto a PRODUCCIÓN DE RUMIANTES II)</span>
-      </li>
-      <li>
-        CIAN248 - PRODUCCIÓN DE RUMIANTES II
-        <span class="tooltip">Abre: CIAN255 - FORMULACIÓN Y EVALUACIÓN DE PROYECTOS (junto a PRODUCTOS ANIMALES)</span>
-      </li>
-      <li>ELECT101 - OPTATIVO DE ESPECIALIZACIÓN II (Requiere aprobación 1° a 6° semestre)</li>
-      <li>
-        HOVE279 - MÉTODOS COMPLEMENTARIOS DE DIAGNÓSTICO
-        <span class="tooltip">Abre: HOVE294 - CLÍNICA DE RUMIANTES, HOVE295 - CLÍNICA DE EQUINOS, HOVE296 - CLÍNICA DE PEQUEÑOS ANIMALES (junto a MEDICINA INTERNA I y II y PATOLOGÍA QUIRÚRGICA)</span>
-      </li>
-      <li>
-        HOVE292 - MEDICINA INTERNA II
-        <span class="tooltip">Abre: HOVE294 - CLÍNICA DE RUMIANTES, HOVE295 - CLÍNICA DE EQUINOS, HOVE296 - CLÍNICA DE PEQUEÑOS ANIMALES (junto a MEDICINA INTERNA I, MÉTODOS COMPLEMENTARIOS Y PATOLOGÍA QUIRÚRGICA)</span>
-      </li>
-      <li>
-        HOVE293 - PATOLOGÍA QUIRÚRGICA Y CIRUGÍA ESPECIAL
-        <span class="tooltip">Abre: HOVE294 - CLÍNICA DE RUMIANTES, HOVE295 - CLÍNICA DE EQUINOS, HOVE296 - CLÍNICA DE PEQUEÑOS ANIMALES (junto a MEDICINA INTERNA I y II, MÉTODOS COMPLEMENTARIOS)</span>
-      </li>
-      <li>
-        MEPR216 - CONTROL SANITARIO E INOCUIDAD DE ALIMENTOS
-        <span class="tooltip">Abre: MEPR210 - SALUD PÚBLICA VETERINARIA, MVET207 - PRÁCTICA PROFESIONAL DE INSPECCIÓN VETERINARIA DE ALIMENTOS</span>
-      </li>
-    </ul>
-  </section>
-</section>
-
-<!-- Quinto Año -->
-<section>
-  <h2>Quinto Año</h2>
-
-  <section class="semestre">
-    <h3>9no Semestre</h3>
-    <ul class="materias">
-      <li>CIAN255 - FORMULACIÓN Y EVALUACIÓN DE PROYECTOS</li>
-      <li>ELECT112 - OPTATIVO DE PROFUNDIZACIÓN I (Requiere aprobación 1° a 8° semestre)</li>
-      <li>
-        HOVE294 - CLÍNICA DE RUMIANTES
-        <span class="tooltip">Abre: HOVE297 - INTERNADO CLÍNICO (junto a CLÍNICA DE EQUINOS y PEQUEÑOS ANIMALES)</span>
-      </li>
-      <li>
-        HOVE295 - CLÍNICA DE EQUINOS
-        <span class="tooltip">Abre: HOVE297 - INTERNADO CLÍNICO (junto a CLÍNICA DE RUMIANTES y PEQUEÑOS ANIMALES)</span>
-      </li>
-      <li>
-        HOVE296 - CLÍNICA DE PEQUEÑOS ANIMALES
-        <span class="tooltip">Abre: HOVE297 - INTERNADO CLÍNICO (junto a CLÍNICA DE EQUINOS y RUMIANTES)</span>
-      </li>
-      <li>MEPR210 - SALUD PÚBLICA VETERINARIA</li>
-    </ul>
-  </section>
-
-  <section class="semestre">
-    <h3>10mo Semestre</h3>
-    <ul class="materias">
-      <li>ELECT116 - OPTATIVO DE PROFUNDIZACIÓN II (Requiere aprobación 1° a 9° semestre)</li>
-      <li>HOVE297 - INTERNADO CLÍNICO</li>
-      <li>MVET207 - PRÁCTICA PROFESIONAL DE INSPECCIÓN VETERINARIA DE ALIMENTOS</li>
-      <li>
-        MVET208 - PRÁCTICA PROFESIONAL
-        <span class="tooltip">Se abre al aprobar materias desde 1° a 10° semestre</span>
-      </li>
-      <li>
-        MVET299 - PROYECTO DE TÍTULO (a)
-        <span class="tooltip">Se abre al aprobar materias desde 1° a 10° semestre</span>
-      </li>
-    </ul>
-  </section>
-</section>
-
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const materias = document.querySelectorAll('ul.materias li');
-
-    materias.forEach(li => {
-      const tooltip = li.querySelector('.tooltip');
-      if (tooltip) {
-        tooltip.style.visibility = 'hidden';
-
-        li.addEventListener('click', (e) => {
-          e.stopPropagation();
-
-          materias.forEach(otherLi => {
-            if (otherLi !== li) {
-              const otherTooltip = otherLi.querySelector('.tooltip');
-              if (otherTooltip) otherTooltip.style.visibility = 'hidden';
-            }
-          });
-
-          tooltip.style.visibility = (tooltip.style.visibility === 'visible') ? 'hidden' : 'visible';
-        });
-      }
-    });
-
-    document.body.addEventListener('click', () => {
-      materias.forEach(li => {
-        const tooltip = li.querySelector('.tooltip');
-        if (tooltip) {
-          tooltip.style.visibility = 'hidden';
-        }
-      });
-    });
+function MallaCurricular() {
+  const [asignaturasAprobadas, setAsignaturasAprobadas] = useState(() => {
+    const saved = localStorage.getItem("aprobadas");
+    return saved ? JSON.parse(saved) : [];
   });
-</script>
+  const [seleccionada, setSeleccionada] = useState(null);
+  const [busqueda, setBusqueda] = useState("");
 
-</body>
-</html>
+  useEffect(() => {
+    localStorage.setItem("aprobadas", JSON.stringify(asignaturasAprobadas));
+  }, [asignaturasAprobadas]);
+
+  function toggleAprobada(codigo) {
+    setAsignaturasAprobadas((prev) =>
+      prev.includes(codigo)
+        ? prev.filter((c) => c !== codigo)
+        : [...prev, codigo]
+    );
+  }
+
+  function filtrarAsignaturas(asig) {
+    if (!busqueda) return true;
+    const b = busqueda.toLowerCase();
+    return (
+      asig.nombre.toLowerCase().includes(b) || asig.codigo.toLowerCase().includes(b)
+    );
+  }
+
+  return (
+    <div style={{ display: "flex", height: "100vh", fontFamily: "Arial, sans-serif" }}>
+      <div style={{ flex: 1, overflowX: "auto", padding: 10, display: "flex" }}>
+        {Object.entries(malla).map(([semestre, asignaturas]) => (
+          <div
+            key={semestre}
+            style={{
+              minWidth: 220,
+              marginRight: 15,
+              borderLeft: "3px solid #228B22",
+              paddingLeft: 10,
+              backgroundColor: "#f0f9f0",
+              borderRadius: 5
+            }}
+          >
+            <h2 style={{ textAlign: "center", color: "#1b5e20" }}>Semestre {semestre}</h2>
+            {asignaturas.filter(filtrarAsignaturas).map((asig) => {
+              const aprobada = asignaturasAprobadas.includes(asig.codigo);
+              return (
+                <div
+                  key={asig.codigo}
+                  onClick={() => setSeleccionada(asig)}
+                  onDoubleClick={() => toggleAprobada(asig.codigo)}
+                  title="Clic para detalles, doble clic para marcar aprobado"
+                  style={{
+                    cursor: "pointer",
+                    marginBottom: 8,
+                    padding: 10,
+                    backgroundColor: aprobada ? "#a5d6a7" : "#e8f5e9",
+                    border: aprobada ? "2px solid #388e3c" : "1px solid #a5d6a7",
+                    borderRadius: 5,
+                    transition: "background-color 0.3s, border 0.3s"
+                  }}
+                >
+                  <strong>{asig.codigo}</strong> - {asig.nombre}
+                </div>
+              );
+            })}
+          </div>
+        ))}
+      </div>
+
+      <div
+        style={{
+          width: 320,
+          backgroundColor: "#f9fbe7",
+          borderLeft: "2px solid #c5e1a5",
+          padding: 20,
+          overflowY: "auto"
+        }}
+      >
+        <h3>Buscar Asignatura</h3>
+        <input
+          type="text"
+          placeholder="Código o nombre"
+          value={busqueda}
+          onChange={(e) => setBusqueda(e.target.value)}
+          style={{
+            width: "100%",
+            padding: 8,
+            fontSize: 16,
+            marginBottom: 20,
+            borderRadius: 4,
+            border: "1px solid #c5e1a5"
+          }}
+        />
+
+        {seleccionada ? (
+          <>
+            <h2>{seleccionada.nombre}</h2>
+            <p>
+              <b>Código:</b> {seleccionada.codigo}
+            </p>
+            <p>
+              <b>Prerrequisitos:</b>{" "}
+              {seleccionada.prerrequisitos.length > 0
+                ? seleccionada.prerrequisitos.join(", ")
+                : "Ninguno"}
+            </p>
+            <p>
+              <b>Abre a:</b>{" "}
+              {seleccionada.abre_a.length > 0
+                ? seleccionada.abre_a.join(", ")
+                : "Ninguno"}
+            </p>
+            <button
+              onClick={() => toggleAprobada(seleccionada.codigo)}
+              style={{
+                marginTop: 10,
+                padding: "8px 12px",
+                backgroundColor: asignaturasAprobadas.includes(seleccionada.codigo)
+                  ? "#388e3c"
+                  : "#a5d6a7",
+                color: "white",
+                border: "none",
+                borderRadius: 5,
+                cursor: "pointer"
+              }}
+            >
+              {asignaturasAprobadas.includes(seleccionada.codigo)
+                ? "Marcar como NO aprobado"
+                : "Marcar como aprobado"}
+            </button>
+          </>
+        ) : (
+          <p>Haz clic en una asignatura para ver detalles</p>
+        )}
+      </div>
+    </div>
+  );
+}
+
+export default MallaCurricular;
