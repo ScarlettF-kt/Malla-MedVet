@@ -36,7 +36,7 @@
   ul.materias li:hover {
     background-color: #dff0d8;
   }
-  /* Tooltip */
+  /* Tooltip oculto por defecto */
   ul.materias li .tooltip {
     visibility: hidden;
     background-color: #333;
@@ -45,16 +45,15 @@
     border-radius: 6px;
     padding: 5px 10px;
     position: absolute;
-    z-index: 1;
+    z-index: 10;
     top: 50%;
     left: 105%;
     transform: translateY(-50%);
     width: max-content;
-    max-width: 300px;
+    max-width: 320px;
     font-size: 0.9em;
-  }
-  ul.materias li:hover .tooltip {
-    visibility: visible;
+    transition: visibility 0.2s ease-in-out;
+    box-shadow: 0 0 8px rgba(0,0,0,0.3);
   }
 </style>
 </head>
@@ -302,4 +301,72 @@
       <li>ELECT112 - OPTATIVO DE PROFUNDIZACIÓN I (Requiere aprobación 1° a 8° semestre)</li>
       <li>
         HOVE294 - CLÍNICA DE RUMIANTES
-        <span class="tooltip">Abre: HOVE297 - INTERNADO CLÍNICO
+        <span class="tooltip">Abre: HOVE297 - INTERNADO CLÍNICO (junto a CLÍNICA DE EQUINOS y PEQUEÑOS ANIMALES)</span>
+      </li>
+      <li>
+        HOVE295 - CLÍNICA DE EQUINOS
+        <span class="tooltip">Abre: HOVE297 - INTERNADO CLÍNICO (junto a CLÍNICA DE RUMIANTES y PEQUEÑOS ANIMALES)</span>
+      </li>
+      <li>
+        HOVE296 - CLÍNICA DE PEQUEÑOS ANIMALES
+        <span class="tooltip">Abre: HOVE297 - INTERNADO CLÍNICO (junto a CLÍNICA DE EQUINOS y RUMIANTES)</span>
+      </li>
+      <li>MEPR210 - SALUD PÚBLICA VETERINARIA</li>
+    </ul>
+  </section>
+
+  <section class="semestre">
+    <h3>10mo Semestre</h3>
+    <ul class="materias">
+      <li>ELECT116 - OPTATIVO DE PROFUNDIZACIÓN II (Requiere aprobación 1° a 9° semestre)</li>
+      <li>HOVE297 - INTERNADO CLÍNICO</li>
+      <li>MVET207 - PRÁCTICA PROFESIONAL DE INSPECCIÓN VETERINARIA DE ALIMENTOS</li>
+      <li>
+        MVET208 - PRÁCTICA PROFESIONAL
+        <span class="tooltip">Se abre al aprobar materias desde 1° a 10° semestre</span>
+      </li>
+      <li>
+        MVET299 - PROYECTO DE TÍTULO (a)
+        <span class="tooltip">Se abre al aprobar materias desde 1° a 10° semestre</span>
+      </li>
+    </ul>
+  </section>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const materias = document.querySelectorAll('ul.materias li');
+
+    materias.forEach(li => {
+      const tooltip = li.querySelector('.tooltip');
+      if (tooltip) {
+        tooltip.style.visibility = 'hidden';
+
+        li.addEventListener('click', (e) => {
+          e.stopPropagation();
+
+          materias.forEach(otherLi => {
+            if (otherLi !== li) {
+              const otherTooltip = otherLi.querySelector('.tooltip');
+              if (otherTooltip) otherTooltip.style.visibility = 'hidden';
+            }
+          });
+
+          tooltip.style.visibility = (tooltip.style.visibility === 'visible') ? 'hidden' : 'visible';
+        });
+      }
+    });
+
+    document.body.addEventListener('click', () => {
+      materias.forEach(li => {
+        const tooltip = li.querySelector('.tooltip');
+        if (tooltip) {
+          tooltip.style.visibility = 'hidden';
+        }
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
