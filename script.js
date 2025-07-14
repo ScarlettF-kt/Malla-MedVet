@@ -1,731 +1,85 @@
-{
-  "1": [
-    {
-      "codigo": "BIMI030",
-      "nombre": "BIOLOGIA CELULAR",
-      "prerrequisitos": [],
-      "abre_a": ["FARM101", "HIPA104", "FARM155"]
-    },
-    {
-      "codigo": "CIAN040",
-      "nombre": "ZOOLOGIA Y ECOLOGIA APLICADA",
-      "prerrequisitos": [],
-      "abre_a": ["CIAN141"]
-    },
-    {
-      "codigo": "DYRE070",
-      "nombre": "EDUCACIÓN FÍSICA Y SALUD",
-      "prerrequisitos": [],
-      "abre_a": []
-    },
-    {
-      "codigo": "ELECT12",
-      "nombre": "OFG 1",
-      "prerrequisitos": [],
-      "abre_a": []
-    },
-    {
-      "codigo": "MATM003",
-      "nombre": "ELEMENTOS DE CALCULO",
-      "prerrequisitos": [],
-      "abre_a": ["MEPR132"]
-    },
-    {
-      "codigo": "MVET013",
-      "nombre": "PRACTICA INTRODUCCION A LA MEDICINA VETERINARIA I",
-      "prerrequisitos": [],
-      "abre_a": ["MVET053"]
-    },
-    {
-      "codigo": "QUIM007",
-      "nombre": "QUIMICA GENERAL",
-      "prerrequisitos": [],
-      "abre_a": []
-    }
-  ],
-  "2": [
-    {
-      "codigo": "ANAV051",
-      "nombre": "ANATOMIA VETERINARIA",
-      "prerrequisitos": [],
-      "abre_a": ["ANAV140"]
-    },
-    {
-      "codigo": "ANAV131",
-      "nombre": "EMBRIOLOGIA VETERINARIA",
-      "prerrequisitos": [],
-      "abre_a": ["CIAN161"]
-    },
-    {
-      "codigo": "ELECT13",
-      "nombre": "OFG 2",
-      "prerrequisitos": [],
-      "abre_a": []
-    },
-    {
-      "codigo": "FARM101",
-      "nombre": "BIOQUIMICA VETERINARIA",
-      "prerrequisitos": ["BIMI030"],
-      "abre_a": ["BIMI165", "FARM151"]
-    },
-    {
-      "codigo": "HIPA104",
-      "nombre": "HISTOLOGIA",
-      "prerrequisitos": [],
-      "abre_a": ["PANI142"]
-    },
-    {
-      "codigo": "MVET053",
-      "nombre": "PRACTICA INTRODUCCION A LA MEDICINA VETERINARIA II",
-      "prerrequisitos": ["MVET013"],
-      "abre_a": []
-    }
-  ],
-  "3": [
-    {
-      "codigo": "ANAV140",
-      "nombre": "MORFOLOGÍA VETERINARIA APLICADA",
-      "prerrequisitos": ["ANAV051"],
-      "abre_a": ["CIAN161"]
-    },
-    {
-      "codigo": "BIMI165",
-      "nombre": "MICROBIOLOGÍA GENERAL",
-      "prerrequisitos": ["FARM101"],
-      "abre_a": ["MEPR235"]
-    },
-    {
-      "codigo": "CIAN141",
-      "nombre": "ZOOTECNIA",
-      "prerrequisitos": ["CIAN040"],
-      "abre_a": ["CIAN113", "CIAN243"]
-    },
-    {
-      "codigo": "FARM151",
-      "nombre": "FISIOLOGÍA VETERINARIA",
-      "prerrequisitos": ["FARM101"],
-      "abre_a": ["FARM202"]
-    },
-    {
-      "codigo": "FARM155",
-      "nombre": "INMUNOLOGÍA",
-      "prerrequisitos": ["BIMI030"],
-      "abre_a": ["PANI142"]
-    },
-    {
-      "codigo": "MEPR132",
-      "nombre": "BIOESTADISTICA",
-      "prerrequisitos": ["MATM003"],
-      "abre_a": ["CIAN240", "CIAN244"]
-    }
-  ],
-  "4": [
-    {
-      "codigo": "CIAN113",
-      "nombre": "ETOLOGIA Y BIENESTAR ANIMAL",
-      "prerrequisitos": ["CIAN141"],
-      "abre_a": []
-    },
-    {
-      "codigo": "CIAN161",
-      "nombre": "FISIOLOGIA REPRODUCTIVA",
-      "prerrequisitos": ["ANAV131", "ANAV140"],
-      "abre_a": ["CIAN262", "CIAN233"]
-    },
-    {
-      "codigo": "CIDI023",
-      "nombre": "INGLES I",
-      "prerrequisitos": [],
-      "abre_a": ["CIDI123"]
-    },
-    {
-      "codigo": "FARM202",
-      "nombre": "FISIOPATOLOGÍA VETERINARIA",
-      "prerrequisitos": ["FARM151"],
-      "abre_a": ["FARM211", "PANI238", "HOVE272"]
-    },
-    {
-      "codigo": "MEPR235",
-      "nombre": "ENFERMEDADES INFECCIOSAS DE LOS ANIMALES DOMÉSTICOS",
-      "prerrequisitos": ["BIMI165"],
-      "abre_a": []
-    },
-    {
-      "codigo": "PANI142",
-      "nombre": "PATOLOGÍA GENERAL",
-      "prerrequisitos": ["HIPA104", "FARM155"],
-      "abre_a": ["PANI238", "PANI239"]
-    }
-  ],
-  "5": [
-    {
-      "codigo": "CIAN243",
-      "nombre": "NUTRICIÓN Y ALIMENTACIÓN",
-      "prerrequisitos": ["CIAN141"],
-      "abre_a": ["CIAN249", "MEPR200", "CIAN246"]
-    },
-    {
-      "codigo": "CIAN262",
-      "nombre": "REPRODUCCION ANIMAL I",
-      "prerrequisitos": ["CIAN161"],
-      "abre_a": ["CIAN246"]
-    },
-    {
-      "codigo": "CIDI123",
-      "nombre": "INGLES II",
-      "prerrequisitos": ["CIDI023"],
-      "abre_a": []
-    },
-    {
-      "codigo": "FARM211",
-      "nombre": "FARMACOLOGIA VETERINARIA",
-      "prerrequisitos": ["FARM202"],
-      "abre_a": ["HOVE215", "HOVE278"]
-    },
-    {
-      "codigo": "MVET102",
-      "nombre": "PRÁCTICA BÁSICA",
-      "prerrequisitos": [
-        "BIMI030",
-        "CIAN040",
-        "DYRE070",
-        "ELECT12",
-        "MATM003",
-        "MVET013",
-        "QUIM007",
-        "ANAV051",
-        "ANAV131",
-        "ELECT13",
-        "FARM101",
-        "HIPA104",
-        "MVET053"
-      ],
-      "abre_a": ["MEPR209"]
-    },
-    {
-      "codigo": "PANI238",
-      "nombre": "ENFERMEDADES PARASITARIAS",
-      "prerrequisitos": ["PANI142"],
-      "abre_a": ["PANI254", "MEPR209", "MEPR216"]
-    },
-    {
-      "codigo": "PANI239",
-      "nombre": "PATOLOGIA ESPECIAL E INMUNOPATOLOGIA",
-      "prerrequisitos": ["PANI142", "CIAN243", "FARM202", "FARM211"],
-      "abre_a": ["MEPR200", "PANI254", "HOVE272", "HOVE278", "HOVE292", "MEPR216"]
-    }
-  ],
-  "6": [
-    {
-      "codigo": "CIAN233",
-      "nombre": "REPRODUCCIÓN ANIMAL II",
-      "prerrequisitos": ["CIAN161"],
-      "abre_a": []
-    },
-    {
-      "codigo": "CIAN240",
-      "nombre": "ECONOMIA Y FUNDAMENTOS DE ADMINISTRACION PECUARIA",
-      "prerrequisitos": ["MEPR132"],
-      "abre_a": ["CIAN248"]
-    },
-    {
-      "codigo": "CIAN249",
-      "nombre": "PRODUCCIÓN DE NO RUMIANTES",
-      "prerrequisitos": ["CIAN141", "CIAN246"],
-      "abre_a": ["CIAN244", "CIAN235"]
-    },
-    {
-      "codigo": "CIDI223",
-      "nombre": "INGLES III",
-      "prerrequisitos": ["CIDI123"],
-      "abre_a": []
-    },
-    {
-      "codigo": "MEPR200",
-      "nombre": "EPIDEMIOLOGÍA VETERINARIA",
-      "prerrequisitos": ["BIMI165", "PANI238", "MVET102"],
-      "abre_a": ["MEPR209", "MEPR216"]
-    },
-    {
-      "codigo": "PANI253",
-      "nombre": "ACUICULTURA Y ENFERMEDADES DE PECES",
-      "prerrequisitos": [],
-      "abre_a": []
-    },
-    {
-      "codigo": "PANI254",
-      "nombre": "ENFERMEDADES DE AVES",
-      "prerrequisitos": ["PANI238", "PANI239"],
-      "abre_a": []
-    }
-  ],
-  "7": [
-    {
-      "codigo": "CIAN244",
-      "nombre": "GENETICA PECUARIA",
-      "prerrequisitos": ["CIAN249"],
-      "abre_a": []
-    },
-    {
-      "codigo": "CIAN246",
-      "nombre": "PRODUCCIÓN DE RUMIANTES I",
-      "prerrequisitos": ["CIAN243", "CIAN262"],
-      "abre_a": ["CIAN235", "CIAN248"]
-    },
-    {
-      "codigo": "ELECT100",
-      "nombre": "OPTATIVO DE ESPECIALIZACIÓN I",
-      "prerrequisitos": [
-        "BIMI030",
-        "CIAN040",
-        "DYRE070",
-        "ELECT12",
-        "MATM003",
-        "MVET013",
-        "QUIM007",
-        "ANAV051",
-        "ANAV131",
-        "ELECT13",
-        "FARM101",
-        "HIPA104",
-        "MVET053",
-        "ANAV140",
-        "BIMI165",
-        "CIAN141",
-        "FARM151",
-        "FARM155",
-        "MEPR132",
-        "CIAN113",
-        "CIAN161",
-        "CIDI023",
-        "FARM202",
-        "MEPR235",
-        "PANI142",
-        "CIAN243",
-        "CIAN262",
-        "CIDI123",
-        "FARM211",
-        "MVET102",
-        "PANI238",
-        "PANI239",
-        "CIAN233",
-        "CIAN240",
-        "CIAN249",
-        "CIDI223",
-        "MEPR200",
-        "PANI253",
-        "PANI254"
-      ],
-      "abre_a": []
-    },
-    {
-      "codigo": "HOVE215",
-      "nombre": "CIRUGÍA GENERAL Y ANESTESIOLOGÍA VETERINARIA",
-      "prerrequisitos": ["FARM211"],
-      "abre_a": ["HOVE293"]
-    },
-    {
-      "codigo": "HOVE272",
-      "nombre": "EXPLORACIÓN CLINICA",
-      "prerrequisitos": ["FARM202"],
-      "abre_a": ["HOVE279", "HOVE293"]
-    },
-    {
-      "codigo": "HOVE278",
-      "nombre": "MEDICINA INTERNA I",
-      "prerrequisitos": ["FARM211", "PANI239"],
-      "abre_a": ["HOVE292", "HOVE294", "HOVE295", "HOVE296"]
-    },
-    {
-      "codigo": "MEPR209",
-      "nombre": "PRÁCTICA TRANSFERENCIA TECNOLÓGICA Y SERVICIO VETERINARIO A LA SOCIEDAD",
-      "prerrequisitos": ["MVET102", "PANI238", "MEPR200"],
-      "abre_a": []
-    }
-  ],
-  "8": [
-    {
-      "codigo": "CIAN235",
-      "nombre": "PRODUCTOS ANIMALES",
-      "prerrequisitos": ["CIAN249"],
-      "abre_a": ["CIAN255"]
-    },
-    {
-      "codigo": "CIAN248",
-      "nombre": "PRODUCCIÓN DE RUMIANTES II",
-      "prerrequisitos": ["CIAN246", "CIAN240"],
-      "abre_a": ["CIAN255"]
-    },
-    {
-      "codigo": "ELECT101",
-      "nombre": "OPTATIVO DE ESPECIALIZACIÓN II",
-      "prerrequisitos": [
-        "BIMI030",
-        "CIAN040",
-        "DYRE070",
-        "ELECT12",
-        "MATM003",
-        "MVET013",
-        "QUIM007",
-        "ANAV051",
-        "ANAV131",
-        "ELECT13",
-        "FARM101",
-        "HIPA104",
-        "MVET053",
-        "ANAV140",
-        "BIMI165",
-        "CIAN141",
-        "FARM151",
-        "FARM155",
-        "MEPR132",
-        "CIAN113",
-        "CIAN161",
-        "CIDI023",
-        "FARM202",
-        "MEPR235",
-        "PANI142",
-        "CIAN243",
-        "CIAN262",
-        "CIDI123",
-        "FARM211",
-        "MVET102",
-        "PANI238",
-        "PANI239",
-        "CIAN233",
-        "CIAN240",
-        "CIAN249",
-        "CIDI223",
-        "MEPR200",
-        "PANI253",
-        "PANI254"
-      ],
-      "abre_a": []
-    },
-    {
-      "codigo": "HOVE279",
-      "nombre": "MÉTODOS COMPLEMENTARIOS DE DIAGNÓSTICO",
-      "prerrequisitos": ["HOVE272", "HOVE278", "FARM202", "PANI238", "HOVE293"],
-      "abre_a": ["HOVE294", "HOVE295", "HOVE296"]
-    },
-    {
-      "codigo": "HOVE292",
-      "nombre": "MEDICINA INTERNA II",
-      "prerrequisitos": ["HOVE278", "HOVE279", "HOVE293"],
-      "abre_a": ["HOVE294", "HOVE295", "HOVE296"]
-    },
-    {
-      "codigo": "HOVE293",
-      "nombre": "PATOLOGÍA QUIRÚRGICA Y CIRUGÍA ESPECIAL",
-      "prerrequisitos": ["HOVE215", "HOVE272", "HOVE279"],
-      "abre_a": ["HOVE294", "HOVE295", "HOVE296"]
-    },
-    {
-      "codigo": "MEPR216",
-      "nombre": "CONTROL SANITARIO E INOCUIDAD DE ALIMENTOS",
-      "prerrequisitos": ["PANI238", "PANI239"],
-      "abre_a": ["MEPR210", "MVET207"]
-    }
-  ],
-  "9": [
-    {
-      "codigo": "CIAN255",
-      "nombre": "FORMULACIÓN Y EVALUACIÓN DE PROYECTOS",
-      "prerrequisitos": ["CIAN235", "CIAN248"],
-      "abre_a": []
-    },
-    {
-      "codigo": "ELECT112",
-      "nombre": "OPTATIVO DE PROFUNDIZACIÓN I",
-      "prerrequisitos": [
-        "BIMI030",
-        "CIAN040",
-        "DYRE070",
-        "ELECT12",
-        "MATM003",
-        "MVET013",
-        "QUIM007",
-        "ANAV051",
-        "ANAV131",
-        "ELECT13",
-        "FARM101",
-        "HIPA104",
-        "MVET053",
-        "ANAV140",
-        "BIMI165",
-        "CIAN141",
-        "FARM151",
-        "FARM155",
-        "MEPR132",
-        "CIAN113",
-        "CIAN161",
-        "CIDI023",
-        "FARM202",
-        "MEPR235",
-        "PANI142",
-        "CIAN243",
-        "CIAN262",
-        "CIDI123",
-        "FARM211",
-        "MVET102",
-        "PANI238",
-        "PANI239",
-        "CIAN233",
-        "CIAN240",
-        "CIAN249",
-        "CIDI223",
-        "MEPR200",
-        "PANI253",
-        "PANI254",
-        "CIAN244",
-        "CIAN246",
-        "ELECT100",
-        "HOVE215",
-        "HOVE272",
-        "HOVE278",
-        "MEPR209"
-      ],
-      "abre_a": []
-    },
-    {
-      "codigo": "HOVE294",
-      "nombre": "CLÍNICA DE RUMIANTES",
-      "prerrequisitos": ["HOVE278", "HOVE279", "HOVE293"],
-      "abre_a": ["HOVE297"]
-    },
-    {
-      "codigo": "HOVE295",
-      "nombre": "CLÍNICA DE EQUINOS",
-      "prerrequisitos": ["HOVE278", "HOVE279", "HOVE293"],
-      "abre_a": ["HOVE297"]
-    },
-    {
-      "codigo": "HOVE296",
-      "nombre": "CLÍNICA DE PEQUEÑOS ANIMALES",
-      "prerrequisitos": ["HOVE278", "HOVE279", "HOVE293"],
-      "abre_a": ["HOVE297"]
-    },
-    {
-      "codigo": "MEPR210",
-      "nombre": "SALUD PÚBLICA VETERINARIA",
-      "prerrequisitos": ["MEPR216"],
-      "abre_a": []
-    }
-  ],
-  "10": [
-    {
-      "codigo": "ELECT116",
-      "nombre": "OPTATIVO DE PROFUNDIZACIÓN II",
-      "prerrequisitos": [
-        "BIMI030",
-        "CIAN040",
-        "DYRE070",
-        "ELECT12",
-        "MATM003",
-        "MVET013",
-        "QUIM007",
-        "ANAV051",
-        "ANAV131",
-        "ELECT13",
-        "FARM101",
-        "HIPA104",
-        "MVET053",
-        "ANAV140",
-        "BIMI165",
-        "CIAN141",
-        "FARM151",
-        "FARM155",
-        "MEPR132",
-        "CIAN113",
-        "CIAN161",
-        "CIDI023",
-        "FARM202",
-        "MEPR235",
-        "PANI142",
-        "CIAN243",
-        "CIAN262",
-        "CIDI123",
-        "FARM211",
-        "MVET102",
-        "PANI238",
-        "PANI239",
-        "CIAN233",
-        "CIAN240",
-        "CIAN249",
-        "CIDI223",
-        "MEPR200",
-        "PANI253",
-        "PANI254",
-        "CIAN244",
-        "CIAN246",
-        "ELECT100",
-        "HOVE215",
-        "HOVE272",
-        "HOVE278",
-        "MEPR209",
-        "CIAN235",
-        "CIAN248",
-        "ELECT101",
-        "HOVE279",
-        "HOVE292",
-        "HOVE293",
-        "MEPR216",
-        "CIAN255",
-        "ELECT112",
-        "HOVE294",
-        "HOVE295",
-        "HOVE296",
-        "MEPR210"
-      ],
-      "abre_a": []
-    },
-    {
-      "codigo": "HOVE297",
-      "nombre": "INTERNADO CLÍNICO",
-      "prerrequisitos": ["HOVE294", "HOVE295", "HOVE296"],
-      "abre_a": []
-    },
-    {
-      "codigo": "MVET207",
-      "nombre": "PRACTICA PROFESIONAL DE INSPECCION VETERINARIA DE ALIMENTOS",
-      "prerrequisitos": ["MEPR216"],
-      "abre_a": []
-    },
-    {
-      "codigo": "MVET208",
-      "nombre": "PRÁCTICA PROFESIONAL",
-      "prerrequisitos": [
-        "BIMI030",
-        "CIAN040",
-        "DYRE070",
-        "ELECT12",
-        "MATM003",
-        "MVET013",
-        "QUIM007",
-        "ANAV051",
-        "ANAV131",
-        "ELECT13",
-        "FARM101",
-        "HIPA104",
-        "MVET053",
-        "ANAV140",
-        "BIMI165",
-        "CIAN141",
-        "FARM151",
-        "FARM155",
-        "MEPR132",
-        "CIAN113",
-        "CIAN161",
-        "CIDI023",
-        "FARM202",
-        "MEPR235",
-        "PANI142",
-        "CIAN243",
-        "CIAN262",
-        "CIDI123",
-        "FARM211",
-        "MVET102",
-        "PANI238",
-        "PANI239",
-        "CIAN233",
-        "CIAN240",
-        "CIAN249",
-        "CIDI223",
-        "MEPR200",
-        "PANI253",
-        "PANI254",
-        "CIAN244",
-        "CIAN246",
-        "ELECT100",
-        "HOVE215",
-        "HOVE272",
-        "HOVE278",
-        "MEPR209",
-        "CIAN235",
-        "CIAN248",
-        "ELECT101",
-        "HOVE279",
-        "HOVE292",
-        "HOVE293",
-        "MEPR216",
-        "CIAN255",
-        "ELECT112",
-        "HOVE294",
-        "HOVE295",
-        "HOVE296",
-        "MEPR210",
-        "HOVE297",
-        "MVET207"
-      ],
-      "abre_a": []
-    },
-    {
-      "codigo": "MVET299",
-      "nombre": "PROYECTO DE TÍTULO (a)",
-      "prerrequisitos": [
-        "BIMI030",
-        "CIAN040",
-        "DYRE070",
-        "ELECT12",
-        "MATM003",
-        "MVET013",
-        "QUIM007",
-        "ANAV051",
-        "ANAV131",
-        "ELECT13",
-        "FARM101",
-        "HIPA104",
-        "MVET053",
-        "ANAV140",
-        "BIMI165",
-        "CIAN141",
-        "FARM151",
-        "FARM155",
-        "MEPR132",
-        "CIAN113",
-        "CIAN161",
-        "CIDI023",
-        "FARM202",
-        "MEPR235",
-        "PANI142",
-        "CIAN243",
-        "CIAN262",
-        "CIDI123",
-        "FARM211",
-        "MVET102",
-        "PANI238",
-        "PANI239",
-        "CIAN233",
-        "CIAN240",
-        "CIAN249",
-        "CIDI223",
-        "MEPR200",
-        "PANI253",
-        "PANI254",
-        "CIAN244",
-        "CIAN246",
-        "ELECT100",
-        "HOVE215",
-        "HOVE272",
-        "HOVE278",
-        "MEPR209",
-        "CIAN235",
-        "CIAN248",
-        "ELECT101",
-        "HOVE279",
-        "HOVE292",
-        "HOVE293",
-        "MEPR216",
-        "CIAN255",
-        "ELECT112",
-        "HOVE294",
-        "HOVE295",
-        "HOVE296",
-        "MEPR210",
-        "HOVE297",
-        "MVET207"
-      ],
-      "abre_a": []
-    }
-  }
+const ramos = [
+  // Primer año - 1 semestre
+  { codigo: "BIMI030", nombre: "BIOLOGIA CELULAR", abre: ["FARM101", "HIPA104", "FARM155"], requisitos: [], semestre: 1 },
+  { codigo: "CIAN040", nombre: "ZOOLOGIA Y ECOLOGIA APLICADA", abre: ["CIAN141"], requisitos: [], semestre: 1 },
+  { codigo: "DYRE070", nombre: "EDUCACIÓN FÍSICA Y SALUD", abre: [], requisitos: [], semestre: 1 },
+  { codigo: "ELECT12", nombre: "OFG 1", abre: [], requisitos: [], semestre: 1 },
+  { codigo: "MATM003", nombre: "ELEMENTOS DE CALCULO", abre: ["MEPR132"], requisitos: [], semestre: 1 },
+  { codigo: "MVET013", nombre: "PRACTICA INTRODUCCION A LA MEDICINA VETERINARIA I", abre: ["MVET053"], requisitos: [], semestre: 1 },
+  { codigo: "QUIM007", nombre: "QUIMICA GENERAL", abre: [], requisitos: [], semestre: 1 },
+
+  // Primer año - 2 semestre
+  { codigo: "ANAV051", nombre: "ANATOMIA VETERINARIA", abre: ["ANAV140"], requisitos: [], semestre: 2 },
+  { codigo: "ANAV131", nombre: "EMBRIOLOGIA VETERINARIA", abre: ["CIAN161"], requisitos: [], semestre: 2 },
+  { codigo: "ELECT13", nombre: "OFG 2", abre: [], requisitos: [], semestre: 2 },
+  { codigo: "FARM101", nombre: "BIOQUIMICA VETERINARIA", abre: ["BIMI165", "FARM151"], requisitos: ["BIMI030"], semestre: 2 },
+  { codigo: "HIPA104", nombre: "HISTOLOGIA", abre: ["PANI142"], requisitos: ["BIMI030"], semestre: 2 },
+  { codigo: "MVET053", nombre: "PRACTICA INTRODUCCION A LA MEDICINA VETERINARIA II", abre: [], requisitos: ["MVET013"], semestre: 2 },
+
+  // Segundo año - 3 semestre
+  { codigo: "ANAV140", nombre: "MORFOLOGÍA VETERINARIA APLICADA", abre: ["CIAN161"], requisitos: ["ANAV051"], semestre: 3 },
+  { codigo: "BIMI165", nombre: "MICROBIOLOGÍA GENERAL", abre: ["MEPR235"], requisitos: ["FARM101"], semestre: 3 },
+  { codigo: "CIAN141", nombre: "ZOOTECNIA", abre: ["CIAN113", "CIAN243"], requisitos: ["CIAN040"], semestre: 3 },
+  { codigo: "FARM151", nombre: "FISIOLOGÍA VETERINARIA", abre: ["FARM202"], requisitos: ["FARM101"], semestre: 3 },
+  { codigo: "FARM155", nombre: "INMUNOLOGÍA", abre: ["PANI142"], requisitos: ["BIMI030"], semestre: 3 },
+  { codigo: "MEPR132", nombre: "BIOESTADISTICA", abre: ["CIAN240", "CIAN244"], requisitos: ["MATM003"], semestre: 3 },
+
+  // Segundo año - 4 semestre
+  { codigo: "CIAN113", nombre: "ETOLOGIA Y BIENESTAR ANIMAL", abre: [], requisitos: ["CIAN141"], semestre: 4 },
+  { codigo: "CIAN161", nombre: "FISIOLOGIA REPRODUCTIVA", abre: ["CIAN262", "CIAN233"], requisitos: ["ANAV140", "ANAV131"], semestre: 4 },
+  { codigo: "CIDI023", nombre: "INGLES I", abre: ["CIDI123"], requisitos: [], semestre: 4 },
+  { codigo: "FARM202", nombre: "FISIOPATOLOGÍA VETERINARIA", abre: ["FARM211", "PANI238", "HOVE272"], requisitos: ["FARM151"], semestre: 4 },
+  { codigo: "MEPR235", nombre: "ENFERMEDADES INFECCIOSAS", abre: [], requisitos: ["BIMI165"], semestre: 4 },
+  { codigo: "PANI142", nombre: "PATOLOGÍA GENERAL", abre: ["PANI238", "PANI239"], requisitos: ["HIPA104", "FARM155"], semestre: 4 },
+
+  // (Continúa desde 5º a 10º semestre según malla completa...)
+];
+
+function crearRamoHTML(ramo) {
+  const div = document.createElement("div");
+  div.className = "ramo bloqueado";
+  div.id = ramo.codigo;
+  div.innerHTML = `<div class="nombre">${ramo.nombre}</div><div class="codigo">${ramo.codigo}</div>`;
+  div.onclick = () => aprobarRamo(ramo);
+  return div;
 }
+
+function aprobarRamo(ramo) {
+  const div = document.getElementById(ramo.codigo);
+  if (div.classList.contains("aprobado")) return;
+  div.classList.add("aprobado");
+
+  ramos.forEach(r => {
+    if (r.requisitos.includes(ramo.codigo)) {
+      const desbloqueado = r.requisitos.every(req => document.getElementById(req)?.classList.contains("aprobado"));
+      if (desbloqueado) {
+        document.getElementById(r.codigo)?.classList.remove("bloqueado");
+      }
+    }
+  });
+}
+
+function inicializarMalla() {
+  const contenedor = document.getElementById("malla");
+  const semestres = {};
+  ramos.forEach(ramo => {
+    if (!semestres[ramo.semestre]) semestres[ramo.semestre] = [];
+    semestres[ramo.semestre].push(ramo);
+  });
+
+  Object.keys(semestres).sort((a, b) => a - b).forEach(num => {
+    const columna = document.createElement("div");
+    columna.className = "semestre";
+    columna.innerHTML = `<h2>${num}° Semestre</h2>`;
+
+    semestres[num].forEach(ramo => {
+      const div = crearRamoHTML(ramo);
+      if (ramo.requisitos.length === 0) div.classList.remove("bloqueado");
+      columna.appendChild(div);
+    });
+
+    contenedor.appendChild(columna);
+  });
+}
+
+document.addEventListener("DOMContentLoaded", inicializarMalla);
