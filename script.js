@@ -88,4 +88,3 @@ function inicializarMalla() {
 }
 
 document.addEventListener("DOMContentLoaded", inicializarMalla);
-
