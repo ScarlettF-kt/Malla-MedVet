@@ -1,67 +1,62 @@
 body {
   font-family: Arial, sans-serif;
-  background-color: #f0fdf4;
-  color: #1b4332;
-  padding: 20px;
+  margin: 20px;
+  background: #f5f5f5;
 }
 
 h1 {
   text-align: center;
-  color: #2d6a4f;
+  margin-bottom: 30px;
 }
 
+/* Contenedor principal que será un flexbox horizontal */
 #malla {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 12px;
-  margin-top: 20px;
+  display: flex;
+  gap: 15px;
+  overflow-x: auto;
+  padding-bottom: 10px;
 }
 
+/* Cada semestre es una columna vertical */
+.semestre {
+  background: #e0f2e9;  /* verde muy claro */
+  border-radius: 8px;
+  padding: 10px;
+  min-width: 200px;
+  flex-shrink: 0;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Título semestre */
+.semestre h2 {
+  text-align: center;
+  margin-bottom: 15px;
+  font-size: 1.2em;
+  color: #2c7a39;  /* verde oscuro */
+}
+
+/* Cada ramo dentro del semestre */
 .ramo {
-  background-color: #d8f3dc;
-  border: 2px solid #95d5b2;
-  padding: 12px;
-  border-radius: 12px;
-  transition: transform 0.2s;
-  position: relative;
+  background: #a1d99b; /* verde medio */
+  margin-bottom: 10px;
+  padding: 8px;
+  border-radius: 6px;
   cursor: pointer;
+  user-select: none;
+  border: 2px solid transparent;
+  transition: background-color 0.3s, border-color 0.3s;
 }
 
-.ramo:hover {
-  transform: scale(1.02);
-}
-
-.ramo.aprobado {
-  background-color: #74c69d;
-  border-color: #52b788;
-  color: white;
-}
-
-.ramo .nombre {
-  font-weight: bold;
-  margin-bottom: 8px;
-}
-
-.ramo .codigo {
-  font-size: 0.85em;
-  color: #555;
-}
-
+/* Ramo bloqueado */
 .ramo.bloqueado {
-  background-color: #eeeeee;
-  border-color: #cccccc;
-  color: #999;
-  pointer-events: none;
+  background: #d9e6db;
+  color: #8a8a8a;
   cursor: not-allowed;
 }
 
-.ramo.bloqueado:hover {
-  transform: none;
+/* Ramo aprobado */
+.ramo.aprobado {
+  background: #2ca02c;
+  color: white;
+  border-color: #1b5e1b;
 }
-
-.ramo .detalle {
-  font-size: 0.75em;
-  margin-top: 8px;
-  color: #333;
-}
-
